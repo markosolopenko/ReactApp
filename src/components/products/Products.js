@@ -1,24 +1,22 @@
 import React, {useEffect, useState} from 'react'
 import AddProduct from './AddProduct'
+import getProducts from '../../api/getProducts'
 
-
-const Products = () => {
-    const [products, setState] = useState([]);
-    const url = 'https://yalantis-react-school-api.yalantis.com/api/v1/products';
+const Products = (props) => {
+    const [products, setProduct] = useState([])
+    let prod = getProducts()
     useEffect(() => {
-        fetch(url)
-            .then((result) => result.json())
-            .then((result) => {
-                setState(result.items)
-            })
+        prod.then((res) => {
+            setProduct(res);
+        })
     }, [])
     return (
         <div className="productsContainer">
             {
                 products.map(element => 
-                    <div key={element.id} className="product"> 
-                    <AddProduct product={element} />
-                    </div>)
+                        <div key={element.id} className="product"> 
+                        <AddProduct product={element} addToCard={props.addToCard} />
+                        </div>)
             }
         </div>
     )
