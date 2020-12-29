@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import AddProduct from './AddProduct'
 
+
 const Products = () => {
-    const [products, setState] =useState([]);
+    const [products, setState] = useState([]);
     const url = 'https://yalantis-react-school-api.yalantis.com/api/v1/products';
     useEffect(() => {
         fetch(url)
@@ -12,9 +13,14 @@ const Products = () => {
             })
     }, [])
     return (
-        <section>
-            <AddProduct products={products} />
-        </section>
+        <div className="productsContainer">
+            {
+                products.map(element => 
+                    <div key={element.id} className="product"> 
+                    <AddProduct product={element} />
+                    </div>)
+            }
+        </div>
     )
 }
 

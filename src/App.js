@@ -1,9 +1,11 @@
 import React from 'react';
-import Products from './products/Products'
+import Products from './components/products/Products'
+import HeaderOfPage from './components/header/HeaderOfPage'
 
 const App = () => {
     return (
         <div className="container">
+            <HeaderOfPage />
             <Products />
         </div>
     )
