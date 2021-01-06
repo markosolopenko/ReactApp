@@ -1,0 +1,121 @@
+.detailsBody {
+    background-color:  #2f2666;
+    width: 1500px;
+    border-radius: 10px;
+    margin: 0 auto;
+    padding: 1rem;
+    margin-top: 20px;
+    height: 400px;
+
+}
+.forMarg {
+    margin-top: 50px;
+}
+
+
+.arrowBack {
+    width: 30px;
+    height: 30px;
+    color: white;
+}
+.arrowBack:hover {
+    cursor: pointer;
+}
+.link {
+    display: flex;
+    align-items: center;
+}
+.backText {
+    color:white;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 2px;
+}
+
+
+.details__Name__Price {
+    display: flex;
+    justify-content: space-around;
+    color: white;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+
+
+.detailCart {
+    height: 30px;
+    width: 30px;
+}
+
+.infoBlock {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    margin-top: 25px;
+}
+.detailOrigin {
+    font-size: 25px;
+    font-weight: bold;
+    color: white;
+}
+.detailAddToCart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: .3rem;
+    background-color: #ffffff;
+    color:#2f2666;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 3px solid rgb(250, 179, 85);
+    height: 70px;
+    width: 200px;
+    font-size: 20px;
+}
+.detailAddToCart:hover {
+    cursor: pointer;
+    background-color: #2f2666;
+    color: rgb(250, 179, 85);
+}
+
+.plus__minus {
+    display: flex;
+    justify-content: space-around;
+    width: 150px;
+}
+.result {
+    font-size: 20px;
+    background-color:#2f2666;
+    width: 60px;
+    height: 30px;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 3px solid rgb(250, 179, 85);
+    text-align: center;
+} 
+.minusOne, .plusOne {
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    color:#2f2666;
+    padding: .3rem;
+    border-radius: 5px;
+    border: 2px solid rgb(250, 179, 85);
+}
+.minusOne:hover, .plusOne:hover {
+    cursor: pointer;
+    background-color: #2f2666;
+    color:rgb(250, 179, 85);
+}
+
+.detailOrigin > span {
+    font-size: 22px;
+    color: rgb(250, 179, 85);
+}
+
+.detailsName > span, .detailsPrice > span  {
+    color: rgb(250, 179, 85);
+}

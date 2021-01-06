@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
-import Products from './components/products/Products'
-import HeaderOfPage from './components/header/HeaderOfPage'
+import React from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom'
+import MainPage from './pages/MainPage'
+import ProductsDetail from './pages/ProductsDetail'
+import { HandleDetail } from './context/detailHandler'
 
 const App = () => {
-    const [count, setCount] = useState(0)
-    const addToCard = (event) => {
-        setCount(count + 1);
-    }
     return (
-        <div className="container">
-            <HeaderOfPage count={count} />
-            <Products addToCard={addToCard} />
-        </div>
+        <HandleDetail>
+            <Switch>
+                <Route exact path="/products" component={MainPage} />
+                <Route exact path="/products/:id" component={ProductsDetail} />
+                <Route>
+                    <Redirect to="/products" />
+                </Route>
+            </Switch>
+        </HandleDetail>
     )
 }
 
