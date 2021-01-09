@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react'
 import AddProduct from './AddProduct'
 import getProducts from '../../../api/getProducts'
 import '../../../styles/MainPage/body.css'
+import bigphoto from '../../../pictures/bigphoto.jpg'
+
 
 const Products = (props) => {
     const [products, setProducts] = useState([])
@@ -12,14 +14,17 @@ const Products = (props) => {
     }, [])
     return (
         <div className="productsContainer">
+            <div className="bigPhoto">
+                <img src={bigphoto} alt="" />
+            </div>
             {
                 products.map(element =>  
                     <div key={element.id} className="product"> 
-                    <AddProduct product={element} 
-                                addToCard={props.addToCard} 
+                        <AddProduct product={element} 
+                                addToCart={props.addToCart} 
                                 goToDetailPage={props.goToDetailPage}
-                                handleLinkClick={props.handleLinkClick} 
-                    />
+                                addProductToDetails={props.addProductToDetails} 
+                        />
                     </div>
                 )
             }

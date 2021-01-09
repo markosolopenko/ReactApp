@@ -2,14 +2,16 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom'
 import MainPage from './pages/MainPage'
 import ProductsDetail from './pages/ProductsDetail'
-import { HandleDetail } from './context/detailHandler'
+import { HandleDetail } from './context/Context'
+import CartPage from './pages/CartPage'
 
 const App = () => {
     return (
         <HandleDetail>
             <Switch>
                 <Route exact path="/products" component={MainPage} />
-                <Route exact path="/products/:id" component={ProductsDetail} />
+                <Route exact path="/products/productsDetails" component={ProductsDetail} />
+                <Route exact path="/products/cartDetails" component={CartPage} />
                 <Route>
                     <Redirect to="/products" />
                 </Route>

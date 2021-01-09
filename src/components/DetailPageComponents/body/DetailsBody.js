@@ -34,11 +34,11 @@ const DetailBody = (props) => {
                         <div className="detailOrigin">CREATE: <span>{product.createdAt}</span></div>
                     </div>
                     <div className="plus__minus">
-                        <div className="minusOne" onClick={() => decrement(product.price)}><Minus /></div>
+                        <div className="minusOne" onClick={decrement}><Minus /></div>
                         <div className="result">{count}</div>
-                        <div className="plusOne" onClick={() => increment(product.price)}><Plus /></div>
+                        <div className="plusOne" onClick={increment}><Plus /></div>
                     </div>
-                    <div className="detailAddToCart" onClick={addToCart} >
+                    <div className="detailAddToCart" onClick={() => addToCart(product)} >
                         <div>ADD TO CART</div>
                         <Cart className="detailCart" />
                     </div>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { ReactComponent as CartSvg } from '../../../icons/cart.svg'
-import bigphoto from '../../../pictures/bigphoto.jpg'
 import '../../../styles/MainPage/header.css'
+import { Link } from 'react-router-dom'
 
 
 const HeaderOfPage = (props) => {
@@ -12,17 +12,16 @@ const HeaderOfPage = (props) => {
                     <div className="logoText">Yalantis shop</div>
                 </div>
                 <div className="orderedProduct">
-                    <div className="cartSvgOrdered">
-                        <CartSvg />
-                    </div>
+                    <Link to="/products/cartDetails">
+                        <div className="cartSvgOrdered">
+                            <CartSvg />
+                        </div>
+                    </Link>
                     <div className="amountOrdered">
                         <div className="amountOrderedButton">{props.count}</div>
                     </div>
                     <div className="priceOrdered">{props.sum}$</div>
                 </div>
-            </div>
-            <div className="bigPhoto">
-                <img src={bigphoto} alt="" />
             </div>
         </div>
     )

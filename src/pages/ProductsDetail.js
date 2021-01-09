@@ -1,39 +1,35 @@
 import React, { useContext } from 'react'
-import HeaderOfDetailPage from '../components/DetailPageComponents/header/HeaderOfDetailPage'
-import {Context} from '../context/detailHandler'
+import {ACTIONS, Context} from '../context/Context'
 import DetailsBody from '../components/DetailPageComponents/body/DetailsBody'
+import HeaderOfPage from '../components/MainPageComponents/header/HeaderOfPage'
 
 
 const ProductsDetail = () => {
     const value = useContext(Context)
-    const increment = (price) => {
-        value.setDetailsCount(value.detailsCount + 1)
-        if (value.detailsCount >= 0) {
-            value.setSumOfAdded(value.sumOfAdded + price)
+    const increment = () => {
+        if (value.state.detailsCount >= 0) {
+            value.dispatch({ type: ACTIONS.INCREMENT})
         }
         
     }
-    const decrement = (price) => {
-        value.setDetailsCount(value.detailsCount - 1)
-        if (value.detailsCount >= 1) {
-            value.setSumOfAdded(value.sumOfAdded - price)
+    const decrement = () => {
+        if (value.state.detailsCount >= 1) {
+            value.dispatch({ type: ACTIONS.DECREMENT })
         }
         
     }
-    const handeDetailAddToCart = () => {
-        value.setSum(value.sumOfAdded + value.sum)
-        value.setCount(value.count + value.detailsCount)
+    const handleDetailAddToCart = (product) => {
+        value.dispatch({ type: ACTIONS.ADD_DETAILS_TO_CART, payload: { product: product } })
     }
-
     return (
         <div className="detailsContainer">
-            <HeaderOfDetailPage count={value.count} sum={value.sum} />
+            <HeaderOfPage count={value.state.count} sum={value.state.sum} />
             <DetailsBody 
-                    product={value.product} 
+                    product={value.state.product} 
                     increment={increment} 
                     decrement={decrement}
-                    count={value.detailsCount}
-                    addToCart={handeDetailAddToCart}
+                    count={value.state.detailsCount}
+                    addToCart={handleDetailAddToCart}
             />
         </div>
     )

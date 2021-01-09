@@ -1,0 +1,20 @@
+import React, { useContext } from 'react'
+import BodyCartPage from '../components/CartDetails/body/BodyCartPage'
+import HeaderOfPage from '../components/MainPageComponents/header/HeaderOfPage'
+import { ACTIONS, Context } from '../context/Context'
+
+
+const CartPage = () => {
+    const value = useContext(Context)
+    const deleteProduct = (id) => {
+        value.dispatch({ type: ACTIONS.DELETE_PRODUCT, payload: { id: id } })
+    }
+    return (
+        <div className="CartPage">
+            <HeaderOfPage sum={value.state.sum} count={value.state.count} />
+            <BodyCartPage deleteProduct={deleteProduct} />
+        </div>
+    )
+}
+
+export default CartPage
