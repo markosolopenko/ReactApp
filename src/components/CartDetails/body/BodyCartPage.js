@@ -7,14 +7,15 @@ const BodyCartPage = (props) => {
     const value = useContext(Context)
     return (
         <div className="cartPageBody">
-            {
-                value.state.cartProducts.map((product, id) =>   
-                    <div key={id}>
+            {  
+               value.state.cartProducts.map((product, index) =>  
+                    
+                    <div key={index}>
                         <CartBodyElement 
                             product={product} 
-                            deleteProduct={props.deleteProduct} 
+                            deleteProduct={props.deleteProduct}
                         />
-                    </div>
+                     </div>
                 )
             }
             <div className="totalSum">

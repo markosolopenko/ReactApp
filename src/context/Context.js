@@ -11,7 +11,9 @@ export const ACTIONS = {
     ADD_DETAILS_TO_CART: 'add-details-to-cart',
     ADD_PRODUCTS_TO_CART: 'add-products-to-cart',
     DELETE_PRODUCT: 'delete-product',
-    ADD_PRODUCT_TO_CART: 'add-product-to-cart'
+    ADD_PRODUCT_TO_CART: 'add-product-to-cart',
+    DELETE_FROM_CART: 'delete-from-cart',
+    IF_EXIST: 'if-exist'
 }
 
 const reducer = (state, action) => {
@@ -22,7 +24,12 @@ const reducer = (state, action) => {
                 count: state.count + 1,
                 sum: state.sum + action.payload.value,
             }
-    
+        case ACTIONS.DELETE_FROM_CART: 
+            return {
+                ...state,
+                count: state.count - 1,
+                sum: state.sum - action.payload.value,
+            }
         case ACTIONS.ADD_PRODUCT_TO_DETAILS:
             return {
                 ...state,
@@ -55,7 +62,12 @@ const reducer = (state, action) => {
         case ACTIONS.ADD_PRODUCT_TO_CART:
             return {
                 ...state,
-                cartProducts: [...state.cartProducts, action.payload.product]
+                cartProducts: [...state.cartProducts, action.payload.product],
+            } 
+        case ACTIONS.IF_EXIST:
+            return {
+                ...state,
+                ifExist: [...state.ifExist, action.payload.product]
             }
         default:
             return state;
@@ -70,7 +82,7 @@ export const HandleDetail = (props) => {
         detailsCount: 0,
         detailsSum: 0,
         cartProducts: [],
-        added: 0
+        ifExist: []
     }
     const [state, dispatch] = useReducer(reducer, initStates) 
 

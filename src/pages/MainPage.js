@@ -6,19 +6,18 @@ import { ACTIONS, Context } from '../context/Context'
 const MainPage = () => {
     const values = useContext(Context) 
 
-    
     const addProductToDetailsPage = (product) => {
         values.dispatch({ type: ACTIONS.ADD_PRODUCT_TO_DETAILS, payload: {product : product} })
     }
     const addToCart = (value, product) => {
         values.dispatch({ type: ACTIONS.ADD_TO_CART, payload: {value: value} })
-        if (values.state.cartProducts.includes(product)) {
-            values.dispatch({ type: ACTIONS.INCREMENT })
-        }else {
+        values.dispatch({ type: ACTIONS.IF_EXIST, payload: {product: product} })
+        if (!values.state.cartProducts.includes(product)) {
             values.dispatch({ type: ACTIONS.ADD_PRODUCT_TO_CART, payload: {product: product} })
         }
         
     }
+        
     return (
        <div className="container">
             <HeaderOfPage 
