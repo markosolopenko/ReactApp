@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
-import Products from '../../components/MainPageComponents/products/Products'
-import HeaderOfPage from '../../components/MainPageComponents/header/HeaderOfPage'
+import Products from '../../components/Products/products/Products'
+import HeaderOfPage from '../../components/Header/HeaderOfPage'
 import { ACTIONS, Context } from '../../context/Context'
 
 const MainPage = () => {

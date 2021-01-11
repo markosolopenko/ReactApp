@@ -3,6 +3,7 @@ import React, { useReducer } from 'react'
 
 export const Context = React.createContext();
 
+
 export const ACTIONS = {
     ADD_TO_CART: 'add-to-cart',
     ADD_PRODUCT_TO_DETAILS: 'add-product-to-details',

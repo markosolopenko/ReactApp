@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import {ACTIONS, Context} from '../../context/Context'
 import DetailsBody from '../../components/DetailPageComponents/body/DetailsBody'
-import HeaderOfPage from '../../components/MainPageComponents/header/HeaderOfPage'
+import HeaderOfPage from '../../components/Header/HeaderOfPage'
 
 
 const ProductsDetail = () => {
