@@ -2,6 +2,7 @@ import React, {useContext} from 'react';
 import Products from '../../components/Products/products/Products'
 import HeaderOfPage from '../../components/Header/HeaderOfPage'
 import { ACTIONS, Context } from '../../context/Context'
+import {  } from ''
 
 const MainPage = () => {
     const values = useContext(Context) 
