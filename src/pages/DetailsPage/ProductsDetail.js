@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
-import {ACTIONS, Context} from '../context/Context'
-import DetailsBody from '../components/DetailPageComponents/body/DetailsBody'
-import HeaderOfPage from '../components/MainPageComponents/header/HeaderOfPage'
+import {ACTIONS, Context} from '../../context/Context'
+import DetailsBody from '../../components/DetailPageComponents/body/DetailsBody'
+import HeaderOfPage from '../../components/MainPageComponents/header/HeaderOfPage'
 
 
 const ProductsDetail = () => {
@@ -9,17 +9,15 @@ const ProductsDetail = () => {
     const increment = () => {
         if (value.state.detailsCount >= 0) {
             value.dispatch({ type: ACTIONS.INCREMENT})
-        }
-        
+        } 
     }
     const decrement = () => {
         if (value.state.detailsCount >= 1) {
             value.dispatch({ type: ACTIONS.DECREMENT })
         }
-        
     }
-    const handleDetailAddToCart = (product) => {
-        value.dispatch({ type: ACTIONS.ADD_DETAILS_TO_CART, payload: { product: product } })
+    const handleDetailAddToCart = () => {
+        value.dispatch({ type: ACTIONS.ADD_DETAILS_TO_CART })
     }
     return (
         <div className="detailsContainer">

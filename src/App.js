@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom'
-import MainPage from './pages/MainPage'
-import ProductsDetail from './pages/ProductsDetail'
+import MainPage from './pages/MainPage/MainPage'
+import ProductsDetail from './pages/DetailsPage/ProductsDetail'
 import { HandleDetail } from './context/Context'
-import CartPage from './pages/CartPage'
+import CartPage from './pages/CartPage/CartPage'
 
 const App = () => {
     return (

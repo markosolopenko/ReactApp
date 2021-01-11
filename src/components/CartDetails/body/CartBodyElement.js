@@ -2,9 +2,9 @@ import React, { useContext, useState } from 'react'
 import { ACTIONS, Context } from '../../../context/Context'
 
 // icons imports 
-import {ReactComponent as Plus} from '../../../icons/plus.svg'
-import {ReactComponent as Minus} from '../../../icons/minus.svg'
-import {ReactComponent as Trash} from '../../../icons/trash.svg'
+import {ReactComponent as Plus} from '../../../assets/plus.svg'
+import {ReactComponent as Minus} from '../../../assets/minus.svg'
+import {ReactComponent as Trash} from '../../../assets/trash.svg'
 
 const CartBodyElement = (props) => {
     const value = useContext(Context)

@@ -1,6 +1,6 @@
 import React from 'react'
-import { ReactComponent as CartSvg } from '../../../icons/cart.svg'
-import '../../../styles/MainPage/header.css'
+import { ReactComponent as CartSvg } from '../../../assets/cart.svg'
+import './header.css'
 import { Link } from 'react-router-dom'
 
 

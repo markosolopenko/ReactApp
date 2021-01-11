@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import CartBodyElement from './CartBodyElement'
-import '../../../styles/CartPage/bodyCartPage.css'
+import './bodyCartPage.css'
 import {Context} from '../../../context/Context';
 
 const BodyCartPage = (props) => {

@@ -4,13 +4,13 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 // Styles
-import '../../../styles/DetailPage/detailsBody.css'
+import './detailsBody.css'
 
 // Import Icons
-import {ReactComponent as Cart} from '../../../icons/cart.svg' 
-import {ReactComponent as Plus} from '../../../icons/plus.svg'
-import {ReactComponent as Minus} from '../../../icons/minus.svg'
-import {ReactComponent as ArrowBack} from '../../../icons/arrowBack.svg'
+import {ReactComponent as Cart} from '../../../assets/cart.svg' 
+import {ReactComponent as Plus} from '../../../assets/plus.svg'
+import {ReactComponent as Minus} from '../../../assets/minus.svg'
+import {ReactComponent as ArrowBack} from '../../../assets/arrowBack.svg'
 
 
 const DetailBody = (props) => {
@@ -38,7 +38,7 @@ const DetailBody = (props) => {
                         <div className="result">{count}</div>
                         <div className="plusOne" onClick={increment}><Plus /></div>
                     </div>
-                    <div className="detailAddToCart" onClick={() => addToCart(product)} >
+                    <div className="detailAddToCart" onClick={addToCart} >
                         <div>ADD TO CART</div>
                         <Cart className="detailCart" />
                     </div>

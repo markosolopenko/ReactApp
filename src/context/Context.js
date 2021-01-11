@@ -9,7 +9,6 @@ export const ACTIONS = {
     INCREMENT: 'increment',
     DECREMENT: 'decrement',
     ADD_DETAILS_TO_CART: 'add-details-to-cart',
-    ADD_PRODUCTS_TO_CART: 'add-products-to-cart',
     DELETE_PRODUCT: 'delete-product',
     ADD_PRODUCT_TO_CART: 'add-product-to-cart',
     DELETE_FROM_CART: 'delete-from-cart',
@@ -39,20 +38,23 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 detailsCount: state.detailsCount + 1,
-                detailsSum: state.detailsSum + state.product.price
+                detailsSum: state.detailsSum + state.product.price,
+                ifExist: [...state.ifExist, state.product]
             }
         case ACTIONS.DECREMENT:
             return {
                 ...state,
                 detailsCount: state.detailsCount - 1,
-                detailsSum: state.detailsSum - state.product.price
+                detailsSum: state.detailsSum - state.product.price,
+                ifExist: state.ifExist.slice(0, state.ifExist.length - 1)
             }
         case ACTIONS.ADD_DETAILS_TO_CART:
             return {
                 ...state,
                 count: state.count + state.detailsCount,
                 sum: state.sum + state.detailsSum,
-                cartProducts: [...state.cartProducts, action.payload.product]
+                cartProducts: [...state.cartProducts, state.product],
+                ifExist: [...state.ifExist]
             } 
         case ACTIONS.DELETE_PRODUCT: 
             return {

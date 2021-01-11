@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { ReactComponent as CartSvg}  from '../../../icons/cart.svg'
+import { ReactComponent as CartSvg}  from '../../../assets/cart.svg'
 
 
 const AddProduct = ({product, addToCart, addProductToDetails}) => {

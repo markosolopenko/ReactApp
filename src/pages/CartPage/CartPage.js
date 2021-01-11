@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
-import BodyCartPage from '../components/CartDetails/body/BodyCartPage'
-import HeaderOfPage from '../components/MainPageComponents/header/HeaderOfPage'
-import { ACTIONS, Context } from '../context/Context'
+import BodyCartPage from '../../components/CartDetails/body/BodyCartPage'
+import HeaderOfPage from '../../components/MainPageComponents/header/HeaderOfPage'
+import { ACTIONS, Context } from '../../context/Context'
 
 
 const CartPage = () => {

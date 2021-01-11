@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import AddProduct from './AddProduct'
 import getProducts from '../../../api/getProducts'
-import '../../../styles/MainPage/body.css'
-import bigphoto from '../../../pictures/bigphoto.jpg'
+import './body.css'
+import bigphoto from '../../../assets/bigphoto.jpg'
 
 
 const Products = (props) => {
