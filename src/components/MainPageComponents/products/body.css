@@ -1,4 +1,7 @@
 /* stylization  of the body content */
+div {
+    color:red;
+}
 .productsContainer {
     display: flex;
     flex-wrap: wrap;
