@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { ReactComponent as CartSvg}  from '../../../assets/cart.svg'
-
+import 
 
 const AddProduct = ({product, addToCart, addProductToDetails}) => {
     return (
