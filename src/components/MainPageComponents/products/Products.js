@@ -3,6 +3,7 @@ import AddProduct from './AddProduct'
 import getProducts from '../../../api/getProducts'
 import './body.css'
 import bigphoto from '../../../assets/bigphoto.jpg'
+import
 
 
 const Products = (props) => {
