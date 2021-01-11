@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import BodyCartPage from '../../components/CartDetails/body/BodyCartPage'
+import BodyCartPage from '../../components/CartPageComponents/CartBody/CartBody'
 import HeaderOfPage from '../../components/Header/HeaderOfPage'
 import { ACTIONS, Context } from '../../context/Context'
 

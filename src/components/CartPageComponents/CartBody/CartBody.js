@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import CartBodyElement from './CartBodyElement'
+import CartBodyElement from '../CartBodyProduct/CartBodyElement'
 import './bodyCartPage.css'
 import {Context} from '../../../context/Context';
 

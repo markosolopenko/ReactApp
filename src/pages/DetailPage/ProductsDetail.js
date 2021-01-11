@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import {ACTIONS, Context} from '../../context/Context'
-import DetailsBody from '../../components/DetailPageComponents/body/DetailsBody'
+import DetailsBody from '../../components/DetailPageComponents/DetailsBody/DetailsBody'
 import HeaderOfPage from '../../components/Header/HeaderOfPage'
 
 
