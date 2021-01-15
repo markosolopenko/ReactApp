@@ -1,33 +1,55 @@
-import React, { useContext } from 'react'
-import {ACTIONS, Context} from '../../context/Context'
+import React from 'react'
 import DetailsBody from '../../components/DetailPageComponents/DetailsBody/DetailsBody'
 import HeaderOfPage from '../../components/Header/HeaderOfPage'
+// Redux
+import { useSelector, useDispatch } from 'react-redux';
+import { mainPageSlice } from '../../features/mainPageSlice';
+import { detailPageSlice } from '../../features/detailPageSlice';
 
 
 const ProductsDetail = () => {
-    const value = useContext(Context)
+    const store = useSelector(state => state)
+    const { amountAddedProducts, sumOfPricesAddedProducts, product } = store.mainPageSlice
+    const { detailsCount } = store.detailPageSlice
+    const dispatch = useDispatch()
     const increment = () => {
-        if (value.state.detailsCount >= 0) {
-            value.dispatch({ type: ACTIONS.INCREMENT})
+        if (detailsCount >= 0) {
+           dispatch(detailPageSlice.actions.increment({payload: {value: product.price}}))
+           dispatch(mainPageSlice.actions.addProductsToCartPage({payload: {product: product}}))
         } 
     }
     const decrement = () => {
-        if (value.state.detailsCount >= 1) {
-            value.dispatch({ type: ACTIONS.DECREMENT })
+        if (detailsCount >= 1) {
+            dispatch(detailPageSlice.actions.decrement({ payload: {price: product.price} }))
+            dispatch(mainPageSlice.actions.decreaseProductFromCart())
         }
     }
-    const handleDetailAddToCart = () => {
-        value.dispatch({ type: ACTIONS.ADD_DETAILS_TO_CART })
+    const handleChange = (event) => {
+        dispatch(detailPageSlice.actions.handleChange({payload: {value: event.target.value}}))
     }
+    const detailsPageAddToCart = () => {
+        const sum = detailsCount * product.price;
+        const array = [];
+        for(let i = 0; i < detailsCount; i++) {
+            array.push(product)
+        }
+        dispatch(mainPageSlice.actions.summarizeAll({payload: 
+            {value: detailsCount, price: sum, array: array}}
+        ))
+    }
+
     return (
         <div className="detailsContainer">
-            <HeaderOfPage count={value.state.count} sum={value.state.sum} />
+            <HeaderOfPage 
+                    count={amountAddedProducts} sum={sumOfPricesAddedProducts} 
+            />
             <DetailsBody 
-                    product={value.state.product} 
+                    handleChange={handleChange}
+                    product={product} 
                     increment={increment} 
                     decrement={decrement}
-                    count={value.state.detailsCount}
-                    addToCart={handleDetailAddToCart}
+                    count={detailsCount}
+                    addToCart={detailsPageAddToCart}
             />
         </div>
     )

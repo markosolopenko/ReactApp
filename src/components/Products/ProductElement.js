@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { ReactComponent as CartSvg}  from '../../assets/cart.svg'
 
 
-const AddProduct = ({product, addToCart, addProductToDetails}) => {
+const ProductElement = ({product, addToCart, addProductToDetails}) => {
     return (
         <div className="productCard">
             <div className="itemInfo">
@@ -28,4 +28,4 @@ const AddProduct = ({product, addToCart, addProductToDetails}) => {
     )
 }
 
-export default AddProduct;
+export default ProductElement;

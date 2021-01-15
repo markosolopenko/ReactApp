@@ -1,18 +1,25 @@
-import React, { useContext } from 'react'
+import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { mainPageSlice } from '../../features/mainPageSlice';
 import BodyCartPage from '../../components/CartPageComponents/CartBody/CartBody'
 import HeaderOfPage from '../../components/Header/HeaderOfPage'
-import { ACTIONS, Context } from '../../context/Context'
+import ProductElement from '../../components/Products/ProductElement';
 
 
 const CartPage = () => {
-    const value = useContext(Context)
-    const deleteProduct = (id) => {
-        value.dispatch({ type: ACTIONS.DELETE_PRODUCT, payload: { id: id } })
+    const store = useSelector(state => state)
+    const { amountOfAddedProducts, sumOfPricesAddedProducts } = store.mainPageSlice
+    const dispatch = useDispatch()
+    const deleteProduct = (id, count, value) => {
+        dispatch(mainPageSlice.actions.deleteProductFromCart({payload: {id: id, count: count, value: value}}))
     }
     return (
         <div className="CartPage">
-            <HeaderOfPage sum={value.state.sum} count={value.state.count} />
-            <BodyCartPage deleteProduct={deleteProduct} />
+            <HeaderOfPage 
+                sum={sumOfPricesAddedProducts} 
+                count={amountOfAddedProducts} 
+            />
+            <BodyCartPage  deleteProduct={deleteProduct} />
         </div>
     )
 }

@@ -5,8 +5,6 @@ export const Context = React.createContext();
 
 
 export const ACTIONS = {
-    ADD_TO_CART: 'add-to-cart',
-    ADD_PRODUCT_TO_DETAILS: 'add-product-to-details',
     INCREMENT: 'increment',
     DECREMENT: 'decrement',
     ADD_DETAILS_TO_CART: 'add-details-to-cart',
@@ -18,22 +16,11 @@ export const ACTIONS = {
 
 const reducer = (state, action) => {
     switch(action.type) {
-        case ACTIONS.ADD_TO_CART: 
-            return {
-                ...state,
-                count: state.count + 1,
-                sum: state.sum + action.payload.value,
-            }
         case ACTIONS.DELETE_FROM_CART: 
             return {
                 ...state,
                 count: state.count - 1,
                 sum: state.sum - action.payload.value,
-            }
-        case ACTIONS.ADD_PRODUCT_TO_DETAILS:
-            return {
-                ...state,
-                product: action.payload.product
             }
         case ACTIONS.INCREMENT:
             return {
@@ -89,7 +76,7 @@ export const HandleDetail = (props) => {
     }
     const [state, dispatch] = useReducer(reducer, initStates) 
 
-    const values = { state, dispatch}
+    const values = { state, dispatch }
     return (
         <Context.Provider value={values}>
             {props.children}

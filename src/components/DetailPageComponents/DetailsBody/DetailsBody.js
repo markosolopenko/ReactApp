@@ -14,7 +14,7 @@ import {ReactComponent as ArrowBack} from '../../../assets/arrowBack.svg'
 
 
 const DetailBody = (props) => {
-    const { product, increment, decrement, count, addToCart }  = props
+    const { product, increment, decrement, count, addToCart, handleChange }  = props
     return (
         <div className="detailsBody">
             <div className="arrowBackDiv">
@@ -35,7 +35,10 @@ const DetailBody = (props) => {
                     </div>
                     <div className="plus__minus">
                         <div className="minusOne" onClick={decrement}><Minus /></div>
-                        <div className="result">{count}</div>
+                        <div>
+                            <input  onChange={handleChange} className="result" type="text" 
+                                    maxLength="3" value={count} />
+                        </div>
                         <div className="plusOne" onClick={increment}><Plus /></div>
                     </div>
                     <div className="detailAddToCart" onClick={addToCart} >

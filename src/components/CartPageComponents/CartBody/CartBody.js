@@ -1,15 +1,14 @@
-import React, { useContext } from 'react'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import CartBodyElement from '../CartBodyProduct/CartBodyElement'
 import './bodyCartPage.css'
-import {Context} from '../../../context/Context';
 
 const BodyCartPage = (props) => {
-    const value = useContext(Context)
+    const store = useSelector(state => state)
     return (
-        <div className="cartPageBody">
-            {  
-               value.state.cartProducts.map((product, index) =>  
-                    
+        <div className="cartPageBody">   
+             {  
+               store.mainPageSlice.cartPageSetProducts.map((product, index) =>          
                     <div key={index}>
                         <CartBodyElement 
                             product={product} 
@@ -19,7 +18,7 @@ const BodyCartPage = (props) => {
                 )
             }
             <div className="totalSum">
-                TOTAL: {value.state.sum}$
+                TOTAL: {store.mainPageSlice.sumOfPricesAddedProducts}$
             </div>
         </div>
     )

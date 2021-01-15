@@ -1,28 +1,34 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import Products from '../../components/Products/ProductBody'
 import HeaderOfPage from '../../components/Header/HeaderOfPage'
-import { ACTIONS, Context } from '../../context/Context'
+import { mainPageSlice } from '../../features/mainPageSlice';
+
+// redux 
+import { useSelector, useDispatch } from 'react-redux';
 
 const MainPage = () => {
-    const values = useContext(Context) 
+    const store = useSelector(state => state)
+    const dispatch = useDispatch()
+
+    const { amountAddedProducts, sumOfPricesAddedProducts} = store.mainPageSlice
 
     const addProductToDetailsPage = (product) => {
-        values.dispatch({ type: ACTIONS.ADD_PRODUCT_TO_DETAILS, payload: {product : product} })
+        dispatch(mainPageSlice.actions.setDetailsPageProduct({payload: {product: product}}))
+        dispatch(mainPageSlice.actions.addProductsCartPageSet({payload: {product: product}}))
     }
-    const addToCart = (value, product) => {
-        values.dispatch({ type: ACTIONS.ADD_TO_CART, payload: {value: value} })
-        values.dispatch({ type: ACTIONS.IF_EXIST, payload: {product: product} })
-        if (!values.state.cartProducts.includes(product)) {
-            values.dispatch({ type: ACTIONS.ADD_PRODUCT_TO_CART, payload: {product: product} })
+    const addToCart = (price, product) => {
+        const array = [product]
+        dispatch(mainPageSlice.actions.summarizeAll({payload: {price: price, value: 1}})) 
+        dispatch(mainPageSlice.actions.addProductsToCartPage({ payload: {array: array} }))
+        if (!store.mainPageSlice.cartPageSetProducts.includes(product)) {
+            dispatch(mainPageSlice.actions.addProductsCartPageSet({payload: {product: product}}))
         }
-        
     }
-        
     return (
        <div className="container">
             <HeaderOfPage 
-                count={values.state.count} 
-                sum={values.state.sum} 
+                count={amountAddedProducts} 
+                sum={sumOfPricesAddedProducts} 
             />
             <Products 
                 addToCart={addToCart} 

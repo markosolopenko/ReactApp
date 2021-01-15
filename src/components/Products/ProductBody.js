@@ -1,6 +1,9 @@
 import React, {useEffect, useState} from 'react'
-import AddProduct from './ProductElement'
+// Element of Body 
+import ProductElement from './ProductElement'
+// Api 
 import getProducts from '../../api/getProducts'
+// Local Imports
 import './body.css'
 import bigphoto from '../../assets/bigphoto.jpg'
 
@@ -20,9 +23,9 @@ const Products = (props) => {
             {
                 products.map(element =>  
                     <div key={element.id} className="product"> 
-                        <AddProduct product={element} 
+                        <ProductElement
+                                product={element} 
                                 addToCart={props.addToCart} 
-                                goToDetailPage={props.goToDetailPage}
                                 addProductToDetails={props.addProductToDetails} 
                         />
                     </div>
