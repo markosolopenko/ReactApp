@@ -3,39 +3,41 @@ import DetailsBody from '../../components/DetailPageComponents/DetailsBody/Detai
 import HeaderOfPage from '../../components/Header/HeaderOfPage'
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { mainPageSlice } from '../../features/mainPageSlice';
-import { detailPageSlice } from '../../features/detailPageSlice';
+import {countGenerallyAddedProducts,
+        addProductsToCartPage,
+        decreaseProductFromDetails, 
+        addProductsToCartPageSet } from '../../features/productsSlice';
+import { handleChange, addToInput,  subtractFromInput } from '../../features/inputSlice';
 
 
 const ProductsDetail = () => {
     const store = useSelector(state => state)
-    const { amountAddedProducts, sumOfPricesAddedProducts, product } = store.mainPageSlice
-    const { detailsCount } = store.detailPageSlice
     const dispatch = useDispatch()
+    const { value } = store.inputSlice
+    const { amountAddedProducts, sumOfPricesAddedProducts, product } = store.productsSlice
     const increment = () => {
-        if (detailsCount >= 0) {
-           dispatch(detailPageSlice.actions.increment({payload: {value: product.price}}))
-           dispatch(mainPageSlice.actions.addProductsToCartPage({payload: {product: product}}))
+        if (value >= 0) {
+           dispatch(addToInput())
         } 
     }
     const decrement = () => {
-        if (detailsCount >= 1) {
-            dispatch(detailPageSlice.actions.decrement({ payload: {price: product.price} }))
-            dispatch(mainPageSlice.actions.decreaseProductFromCart())
+        if (value >= 1) {
+            dispatch(subtractFromInput())
+            dispatch(decreaseProductFromDetails())
         }
     }
-    const handleChange = (event) => {
-        dispatch(detailPageSlice.actions.handleChange({payload: {value: event.target.value}}))
+    const handleChanges = (event) => {
+        dispatch(handleChange({value: event.target.value}))
     }
     const detailsPageAddToCart = () => {
-        const sum = detailsCount * product.price;
+        const sum = value * product.price;
         const array = [];
-        for(let i = 0; i < detailsCount; i++) {
+        for(let i = 0; i < value; i++) {
             array.push(product)
         }
-        dispatch(mainPageSlice.actions.summarizeAll({payload: 
-            {value: detailsCount, price: sum, array: array}}
-        ))
+        dispatch(countGenerallyAddedProducts({count: value, price: sum}))
+        dispatch(addProductsToCartPage({array: array}))
+        dispatch(addProductsToCartPageSet({product: product}))
     }
 
     return (
@@ -44,11 +46,11 @@ const ProductsDetail = () => {
                     count={amountAddedProducts} sum={sumOfPricesAddedProducts} 
             />
             <DetailsBody 
-                    handleChange={handleChange}
+                    handleChange={handleChanges}
                     product={product} 
                     increment={increment} 
                     decrement={decrement}
-                    count={detailsCount}
+                    count={value}
                     addToCart={detailsPageAddToCart}
             />
         </div>

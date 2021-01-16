@@ -5,20 +5,22 @@ import './bodyCartPage.css'
 
 const BodyCartPage = (props) => {
     const store = useSelector(state => state)
+    const { cartPageSetProducts, sumOfPricesAddedProducts, cartPageProducts } = store.productsSlice
     return (
         <div className="cartPageBody">   
              {  
-               store.mainPageSlice.cartPageSetProducts.map((product, index) =>          
+               cartPageSetProducts.map((product, index) =>          
                     <div key={index}>
                         <CartBodyElement 
                             product={product} 
                             deleteProduct={props.deleteProduct}
+                            cartPageProducts={cartPageProducts}
                         />
                      </div>
                 )
             }
             <div className="totalSum">
-                TOTAL: {store.mainPageSlice.sumOfPricesAddedProducts}$
+                TOTAL: {sumOfPricesAddedProducts}$
             </div>
         </div>
     )

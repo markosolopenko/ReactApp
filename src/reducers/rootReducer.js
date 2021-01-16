@@ -1,11 +1,11 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
 // reducers
-import { mainPageSlice } from '../features/mainPageSlice'; 
-import { detailPageSlice } from '../features/detailPageSlice';
+import { productsSlice } from '../features/productsSlice'; 
+import { inputSlice } from '../features/inputSlice';
 
 
 export const rootReducer = combineReducers({
-    mainPageSlice: mainPageSlice.reducer,
-    detailPageSlice: detailPageSlice.reducer,
+    productsSlice: productsSlice.reducer,
+    inputSlice: inputSlice.reducer,
 })

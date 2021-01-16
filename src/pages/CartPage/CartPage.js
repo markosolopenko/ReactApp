@@ -1,23 +1,24 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { mainPageSlice } from '../../features/mainPageSlice';
+import {deleteProductFromCart,
+        subtractFromAddedProducts } from '../../features/productsSlice'
 import BodyCartPage from '../../components/CartPageComponents/CartBody/CartBody'
 import HeaderOfPage from '../../components/Header/HeaderOfPage'
-import ProductElement from '../../components/Products/ProductElement';
 
 
 const CartPage = () => {
     const store = useSelector(state => state)
-    const { amountOfAddedProducts, sumOfPricesAddedProducts } = store.mainPageSlice
+    const { amountAddedProducts, sumOfPricesAddedProducts } = store.productsSlice
     const dispatch = useDispatch()
-    const deleteProduct = (id, count, value) => {
-        dispatch(mainPageSlice.actions.deleteProductFromCart({payload: {id: id, count: count, value: value}}))
+    const deleteProduct = (id, count, price) => {
+        dispatch(deleteProductFromCart({id: id}))
+        dispatch(subtractFromAddedProducts({count: count, price: price}))
     }
     return (
         <div className="CartPage">
             <HeaderOfPage 
                 sum={sumOfPricesAddedProducts} 
-                count={amountOfAddedProducts} 
+                count={amountAddedProducts} 
             />
             <BodyCartPage  deleteProduct={deleteProduct} />
         </div>
