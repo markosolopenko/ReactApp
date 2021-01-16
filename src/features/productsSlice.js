@@ -39,6 +39,14 @@ export const productsSlice = createSlice({
             state.amountAddedProducts -= action.payload.count
             state.sumOfPricesAddedProducts -= action.payload.price
         },
+        takesDataFromInput(state, action) {
+            const { count, price } = action.payload
+            if(action.payload.count) {
+                state.amountAddedProducts += count
+                state.sumOfPricesAddedProducts += price
+            }
+            
+        }
     }
 }) 
 
@@ -51,4 +59,5 @@ export const {
     deleteProductFromCart ,
     subtractProductFromCart,
     subtractFromAddedProducts,
+    takesDataFromInput
             } = productsSlice.actions

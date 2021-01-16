@@ -6,6 +6,7 @@ import {subtractProductFromCart,
         countGenerallyAddedProducts,
         subtractFromAddedProducts,
         addProductsToCartPage,
+        takesDataFromInput,
                               } from '../../../features/productsSlice'
 
 // icons imports 
@@ -22,7 +23,6 @@ const CartBodyElement = (props) => {
     const dispatch = useDispatch()
 
     let count = 0;
-    let [value, setValue] = useState('')
     // Count how many current product have been added  
     cartPageProducts.forEach(productObj => {
         if(productObj === product) {
@@ -30,7 +30,7 @@ const CartBodyElement = (props) => {
         }
     }) 
     let [counter, setCounter] = useState(count)
-    let sum = product.price * Number(counter);
+    let sum = product.price * counter
 
     // methods for adding and subtract the elements and also count them
     const increase = () => {
@@ -50,12 +50,19 @@ const CartBodyElement = (props) => {
     }
 
     const addDataWhileChanging = (value) => { 
-        setValue(value)
-        setCounter(Number(value))  
+        if(value >= 0) {
+            const array = [];
+            for (let i = 0; i < value; i++) {
+                array.push(product)
+            }
+            setCounter(value) 
+            dispatch(takesDataFromInput({count: value, price: (value * product.price)}))
+            dispatch(subtractFromAddedProducts({count: counter, price: product.price * counter}))
+        }
     }
     // handle changes in input 
     const handleChange = (e) => {
-        addDataWhileChanging(e.target.value) 
+        addDataWhileChanging(Number(e.target.value))
     } 
 
     // return the product itself
