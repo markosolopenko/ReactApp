@@ -1,27 +1,28 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 // Element of Body 
 import ProductElement from './ProductElement'
 // Api 
-import getProducts from '../../api/getProducts'
+import { fetchProducts } from '../../features/productsSlice';
 // Local Imports
 import './body.css'
 import bigphoto from '../../assets/bigphoto.jpg'
+import { useDispatch, useSelector } from 'react-redux'
 
 
 const Products = (props) => {
-    const [products, setProducts] = useState([])
+    const store = useSelector(state => state.productsSlice)
+    const dispatch = useDispatch()
+
     useEffect(() => {
-        getProducts().then((res) => {
-            setProducts(res);
-        })
-    }, [])
+        dispatch(fetchProducts())
+    }, [dispatch])
     return (
         <div className="productsContainer">
             <div className="bigPhoto">
                 <img src={bigphoto} alt="" />
             </div>
             {
-                products.map(element =>  
+               store.products.map(element =>  
                     <div key={element.id} className="product"> 
                         <ProductElement
                                 product={element} 

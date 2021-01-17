@@ -1,15 +1,31 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { getProducts } from '../api/getProducts';
 
+
+export const fetchProducts = createAsyncThunk(
+    "api/getProducts",
+    async () => {
+        return await getProducts()
+    } 
+)
+
+
+const initialState = {
+    amountAddedProducts: 0,
+    sumOfPricesAddedProducts: 0,
+    product: {}, 
+    cartPageProducts: [],
+    cartPageSetProducts: [],
+    status: '',
+    error: null,
+    products: [],
+    totalItems: 0,
+    page: 0
+}
 
 export const productsSlice = createSlice({
     name: 'productsSlice',
-    initialState: {
-        amountAddedProducts: 0,
-        sumOfPricesAddedProducts: 0,
-        product: {}, 
-        cartPageProducts: [],
-        cartPageSetProducts: [],
-    }, 
+    initialState, 
     reducers: {
         countGenerallyAddedProducts(state, action) {
             state.amountAddedProducts += action.payload.count
@@ -44,8 +60,28 @@ export const productsSlice = createSlice({
             if(action.payload.count) {
                 state.amountAddedProducts += count
                 state.sumOfPricesAddedProducts += price
-            }
-            
+            }    
+        },
+    },
+    extraReducers: {
+        [fetchProducts.pending]: (state) => {
+            state.status = 'loading'
+        },
+        [fetchProducts.fulfilled]: (state, action) => {
+            state.status = 'succeeded'
+            state.products = action.payload.items
+        },
+        [fetchProducts.rejected]: (state, action) => {
+            state.status = 'failed'
+            state.error = action.payload
+        },
+        [fetchProducts.fulfilled]: (state, action) => {
+            const { totalItems, items, page } = action.payload 
+            state.products = items
+            state.page = page
+            state.totalItems = totalItems
+            state.status = 'succeeded'
+            state.error = undefined
         }
     }
 }) 
