@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {deleteProductFromCart,
         subtractFromAddedProducts } from '../../features/productsSlice'
-import BodyCartPage from '../../components/CartPageComponents/CartBody/CartBody'
+import BodyCartPage from '../../components/CartPageComponents/CartBody'
 import HeaderOfPage from '../../components/Header/HeaderOfPage'
 
 

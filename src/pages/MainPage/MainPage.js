@@ -5,7 +5,10 @@ import {countGenerallyAddedProducts,
         setProductToDetailsPage,
         addProductsToCartPage,
         addProductsToCartPageSet, 
-         } from '../../features/productsSlice';
+} from '../../features/productsSlice';
+
+import Filters from "../../components/Filters/filters";
+import BigPhoto from '../../components/Products/BigPhoto';
 
 // redux 
 import { useSelector, useDispatch } from 'react-redux';
@@ -32,6 +35,8 @@ const MainPage = () => {
                 count={amountAddedProducts} 
                 sum={sumOfPricesAddedProducts} 
             />
+            <BigPhoto />
+            <Filters />
             <Products 
                 addToCart={addToCart} 
                 addProductToDetails={addProductToDetailsPage} 

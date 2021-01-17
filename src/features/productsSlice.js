@@ -20,7 +20,8 @@ const initialState = {
     error: null,
     products: [],
     totalItems: 0,
-    page: 0
+    page: 0,
+    origins: []
 }
 
 export const productsSlice = createSlice({
@@ -68,21 +69,22 @@ export const productsSlice = createSlice({
             state.status = 'loading'
         },
         [fetchProducts.fulfilled]: (state, action) => {
-            state.status = 'succeeded'
-            state.products = action.payload.items
-        },
-        [fetchProducts.rejected]: (state, action) => {
-            state.status = 'failed'
-            state.error = action.payload
-        },
-        [fetchProducts.fulfilled]: (state, action) => {
             const { totalItems, items, page } = action.payload 
             state.products = items
             state.page = page
             state.totalItems = totalItems
             state.status = 'succeeded'
             state.error = undefined
-        }
+            state.products.forEach(product => 
+                !state.origins.includes(product.origin) 
+                    ? state.origins.push(product.origin)
+                    : null 
+            )
+        },
+        [fetchProducts.rejected]: (state, action) => {
+            state.status = 'failed'
+            state.error = action.payload
+        },
     }
 }) 
 
@@ -95,5 +97,5 @@ export const {
     deleteProductFromCart ,
     subtractProductFromCart,
     subtractFromAddedProducts,
-    takesDataFromInput
+    takesDataFromInput,
             } = productsSlice.actions

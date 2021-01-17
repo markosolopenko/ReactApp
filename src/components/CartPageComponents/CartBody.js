@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import CartBodyElement from '../CartBodyProduct/CartBodyElement'
+import CartBodyElement from './CartBodyElement'
 import './bodyCartPage.css'
 
 const BodyCartPage = (props) => {

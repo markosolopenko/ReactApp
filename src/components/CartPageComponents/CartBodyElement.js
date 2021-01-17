@@ -7,12 +7,12 @@ import {subtractProductFromCart,
         subtractFromAddedProducts,
         addProductsToCartPage,
         takesDataFromInput,
-                              } from '../../../features/productsSlice'
+                              } from '../../features/productsSlice'
 
 // icons imports 
-import {ReactComponent as Plus} from '../../../assets/plus.svg'
-import {ReactComponent as Minus} from '../../../assets/minus.svg'
-import {ReactComponent as Trash} from '../../../assets/trash.svg'
+import {ReactComponent as Plus} from '../../assets/plus.svg'
+import {ReactComponent as Minus} from '../../assets/minus.svg'
+import {ReactComponent as Trash} from '../../assets/trash.svg'
 
 
 

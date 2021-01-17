@@ -5,7 +5,6 @@ import ProductElement from './ProductElement'
 import { fetchProducts } from '../../features/productsSlice';
 // Local Imports
 import './body.css'
-import bigphoto from '../../assets/bigphoto.jpg'
 import { useDispatch, useSelector } from 'react-redux'
 
 
@@ -18,9 +17,6 @@ const Products = (props) => {
     }, [dispatch])
     return (
         <div className="productsContainer">
-            <div className="bigPhoto">
-                <img src={bigphoto} alt="" />
-            </div>
             {
                store.products.map(element =>  
                     <div key={element.id} className="product"> 
