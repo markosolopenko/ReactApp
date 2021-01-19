@@ -21,7 +21,6 @@ const initialState = {
     initialItems: [],
     products: [],
     totalItems: 0,
-    origins: [],
     page: 0,
     productsToShow: [],
     showedOrigins: [],
@@ -70,17 +69,12 @@ export const productsSlice = createSlice({
         showSelectedOrigins(state, action) {
             const { checked, origin } = action.payload
             if(checked === true) {
-                state.products = state.initialItems.filter(product =>
-                    product.origin === origin
-                )
+                state.products = state.initialItems.filter(product => product.origin === origin)
                 state.showedOrigins.push(action.payload.origin)
             }else if(checked === false && state.showedOrigins.includes(origin)) {
-                state.products = state.products.filter(product => 
-                    product.origin !== origin      
-                )
+                state.products = state.products.filter(product => product.origin !== origin)
                 state.showedOrigins = state.showedOrigins.filter(ori => origin !== ori)
-                state.productsToShow = state.productsToShow.filter(product => 
-                    product.origin !== origin)
+                state.productsToShow = state.productsToShow.filter(product => product.origin !== origin)
             }
             if (state.products.length === 0) {
                 state.products = state.initialItems
@@ -89,7 +83,6 @@ export const productsSlice = createSlice({
                 state.products = state.productsToShow
             }
            
-            
         },
     },
     extraReducers: {
@@ -98,19 +91,12 @@ export const productsSlice = createSlice({
         },
         [fetchProducts.fulfilled]: (state, action) => {
             const { totalItems, items, page } = action.payload 
-            const mapArray = new Map()
             state.page = page
             state.totalItems = totalItems
             state.products = items
             state.status = 'succeeded'
             state.error = undefined
             state.initialItems = items
-            items.forEach(product => 
-                !mapArray.has(product.origin) 
-                    ? mapArray.set(product.origin, false)
-                    : null     
-            )
-            state.origins = [...mapArray]
         },
         [fetchProducts.rejected]: (state, action) => {
             state.status = 'failed'
