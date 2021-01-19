@@ -21,7 +21,7 @@ const initialState = {
     products: [],
     totalItems: 0,
     page: 0,
-    origins: []
+    origins: [],
 }
 
 export const productsSlice = createSlice({
@@ -63,6 +63,12 @@ export const productsSlice = createSlice({
                 state.sumOfPricesAddedProducts += price
             }    
         },
+        handleCheckbox(state, action) {
+            state.origins.forEach(arr => 
+                action.payload.name === arr[0] ? [...arr, 
+                    arr[1] = !arr[1]] : null     
+            )
+        },
     },
     extraReducers: {
         [fetchProducts.pending]: (state) => {
@@ -70,16 +76,19 @@ export const productsSlice = createSlice({
         },
         [fetchProducts.fulfilled]: (state, action) => {
             const { totalItems, items, page } = action.payload 
+            const mapArray = new Map()
             state.products = items
             state.page = page
             state.totalItems = totalItems
             state.status = 'succeeded'
             state.error = undefined
-            state.products.forEach(product => 
-                !state.origins.includes(product.origin) 
-                    ? state.origins.push(product.origin)
-                    : null 
+            state.origin = items.forEach(product => 
+                !mapArray.has(product.origin) 
+                    ? mapArray.set(product.origin, false)
+                    : null     
             )
+            state.origins = [...mapArray]
+            
         },
         [fetchProducts.rejected]: (state, action) => {
             state.status = 'failed'
@@ -98,4 +107,6 @@ export const {
     subtractProductFromCart,
     subtractFromAddedProducts,
     takesDataFromInput,
-            } = productsSlice.actions
+    handleCheckbox
+
+} = productsSlice.actions

@@ -20,7 +20,7 @@ const CartPage = () => {
                 sum={sumOfPricesAddedProducts} 
                 count={amountAddedProducts} 
             />
-            <BodyCartPage  deleteProduct={deleteProduct} />
+            <BodyCartPage deleteProduct={deleteProduct} />
         </div>
     )
 }

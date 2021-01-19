@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 // Redux 
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {subtractProductFromCart, 
         countGenerallyAddedProducts,
         subtractFromAddedProducts,
@@ -13,24 +13,43 @@ import {subtractProductFromCart,
 import {ReactComponent as Plus} from '../../assets/plus.svg'
 import {ReactComponent as Minus} from '../../assets/minus.svg'
 import {ReactComponent as Trash} from '../../assets/trash.svg'
+import { useEffect } from 'react'
 
 
 
 const CartBodyElement = (props) => {
+    const [counter, setCounter] = useState(0)
     // Props
-    const { product, deleteProduct, cartPageProducts } = props
+    const { product, deleteProduct } = props
     // Redux
     const dispatch = useDispatch()
-
-    let count = 0;
+    const store = useSelector(state => state.productsSlice)
+    let count = 0
     // Count how many current product have been added  
-    cartPageProducts.forEach(productObj => {
+    store.cartPageProducts.forEach(productObj => {
         if(productObj === product) {
             count += 1
         }
     }) 
-    let [counter, setCounter] = useState(count)
-    let sum = product.price * counter
+    useEffect(() => {
+        setCounter(count)
+    }, [count])
+    const addDataWhileChanging = (value) => { 
+        if(value >= 0) {
+            // const array = [];
+            // for (let i = 0; i < value; i++) {
+            //     array.push(product)
+            // }
+            setCounter(value) 
+            dispatch(takesDataFromInput({count: value, price: value * product.price}))
+            dispatch(subtractFromAddedProducts({count: counter, price: product.price * counter}))
+            console.log(value)
+        }
+    }
+    const handleChange = (e) => {
+        addDataWhileChanging(Number(e.target.value))
+    }
+
 
     // methods for adding and subtract the elements and also count them
     const increase = () => {
@@ -44,43 +63,34 @@ const CartBodyElement = (props) => {
     const decrease = () => {
         if (counter >= 1) {
             setCounter(counter - 1)
-            dispatch(subtractProductFromCart({index: cartPageProducts.indexOf(product)}))
+            dispatch(subtractProductFromCart({index: store.cartPageProducts.indexOf(product)}))
             dispatch(subtractFromAddedProducts({count: 1, price: product.price}))
         }
     }
 
-    const addDataWhileChanging = (value) => { 
-        if(value >= 0) {
-            const array = [];
-            for (let i = 0; i < value; i++) {
-                array.push(product)
-            }
-            setCounter(value) 
-            dispatch(takesDataFromInput({count: value, price: (value * product.price)}))
-            dispatch(subtractFromAddedProducts({count: counter, price: product.price * counter}))
-        }
-    }
-    // handle changes in input 
-    const handleChange = (e) => {
-        addDataWhileChanging(Number(e.target.value))
-    } 
-
-    // return the product itself
     return (
         <div className="elementCartBody">
             <div className="cbName"><div className="cpName">NAME</div>: {product.name}</div>
             <div className="plus__minus">
                 <div className="minusOne" onClick={decrease}><Minus /></div>
-                <div>
-                    <input className="result" value={counter} onChange={handleChange} />
+                <div className="resultDiv">
+                    <input 
+                        className="result"
+                        type="text"
+                        value={counter}
+                        onChange={handleChange}         
+                    />
                 </div> 
+                    
                 <div className="plusOne" onClick={increase}><Plus /></div>
             </div>
             <div className="arifmetix">
-                {product.price}$ x {counter} = {sum}$
+                {product.price}$ x {counter} = {product.price * counter}$
             </div>
             <div className="btnDelete">
-                <button onClick={() => deleteProduct(product.id, counter, sum)}>
+                <button onClick={() => deleteProduct(
+                    product.id, counter, counter*product.price 
+                )}>
                     <Trash className="trash" />
                 </button>
             </div>

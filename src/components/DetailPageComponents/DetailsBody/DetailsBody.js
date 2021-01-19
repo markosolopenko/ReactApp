@@ -36,7 +36,7 @@ const DetailBody = (props) => {
                     <div className="plus__minus">
                         <div className="minusOne" onClick={decrement}><Minus /></div>
                         <div>
-                            <input  onChange={handleChange} className="result" type="text" 
+                            <input onChange={handleChange} className="result" type="text" 
                                     maxLength="3" value={count} />
                         </div>
                         <div className="plusOne" onClick={increment}><Plus /></div>

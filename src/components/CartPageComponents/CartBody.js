@@ -5,7 +5,7 @@ import './bodyCartPage.css'
 
 const BodyCartPage = (props) => {
     const store = useSelector(state => state)
-    const { cartPageSetProducts, sumOfPricesAddedProducts, cartPageProducts } = store.productsSlice
+    const { cartPageSetProducts, sumOfPricesAddedProducts } = store.productsSlice
     return (
         <div className="cartPageBody">   
              {  
@@ -14,7 +14,6 @@ const BodyCartPage = (props) => {
                         <CartBodyElement 
                             product={product} 
                             deleteProduct={props.deleteProduct}
-                            cartPageProducts={cartPageProducts}
                         />
                      </div>
                 )

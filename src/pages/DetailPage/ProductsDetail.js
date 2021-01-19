@@ -37,7 +37,10 @@ const ProductsDetail = () => {
         }
         dispatch(countGenerallyAddedProducts({count: value, price: sum}))
         dispatch(addProductsToCartPage({array: array}))
-        dispatch(addProductsToCartPageSet({product: product}))
+        if(!store.productsSlice.cartPageSetProducts.includes(product)) {
+             dispatch(addProductsToCartPageSet({product: product}))
+        }
+           
     }
 
     return (
