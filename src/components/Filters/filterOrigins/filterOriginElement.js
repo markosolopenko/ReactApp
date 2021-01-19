@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { showSelectedOrigins } from '../../../features/productsSlice';
 
 
 
 const FilterOriginElement = (props) => {
-    const store = useSelector(state => state.productsSlice)
     const dispatch = useDispatch()
     const [selected, setSelect] = useState(false)
     const handleChange = (event) => {

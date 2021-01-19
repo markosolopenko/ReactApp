@@ -7,18 +7,25 @@ const FilterPrices = () => {
     const dispatch = useDispatch()    
     const [state, setValue] = useState({min: '', max: ''})
     const handleMin = (event) => {
-        setValue(state => ({
-            ...state,
-            min: Number(event.target.value)
-        }))
-        dispatch(showProductsByPrices({min: event.target.value, max: state.max}))
+        const value = event.target.value    
+        if(!isNaN(value) && value >= 0) {
+            setValue(state => ({
+                ...state,
+                min: Number(value)
+            }))
+            dispatch(showProductsByPrices({min: Number(value), max: state.max}))
+        }
+        
     } 
     const handleMax = (event) => {
-        setValue(state => ({
-            ...state,
-            max: Number(event.target.value)
-        }))
-        dispatch(showProductsByPrices({min: state.min, max: event.target.value}))
+        const value = event.target.value    
+        if(!isNaN(value) && value >= 0) {
+            setValue(state => ({
+                ...state,
+                max: Number(value)
+            }))
+            dispatch(showProductsByPrices({min: state.min, max: Number(value)}))
+        }
     }
 
     return (

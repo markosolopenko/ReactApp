@@ -65,6 +65,23 @@ export const productsSlice = createSlice({
                 state.sumOfPricesAddedProducts += price
             }    
         },
+        showSelectedNumberProductsPerPage(state, action) { 
+            if(parseInt(action.payload.number)) {
+                state.products = state.initialItems.slice(0, Number(action.payload.number))
+                state.productsToShow = state.products
+            }else {
+                state.products = state.initialItems
+                state.productsToShow = state.products
+            }  
+        },
+        showProductsByPrices(state, action) {
+            const {min, max} = action.payload
+            state.products = state.productsToShow.filter(product => 
+                Number(product.price) >= Number(min) && Number(product.price) <= Number(max))
+            if(min === 0 && max === 0) {
+                state.products = state.productsToShow
+            }
+        },
         showSelectedOrigins(state, action) {
             const { checked, origin } = action.payload
             if(checked === true) {
@@ -79,22 +96,6 @@ export const productsSlice = createSlice({
             if (state.products.length === 0) {
                 state.products = state.initialItems
             }
-        },
-        showProductsByPrices(state, action) {
-            const {min, max} = action.payload
-            state.products = state.initialItems.filter(
-                product => Number(product.price) >= Number(min) && Number(product.price) <= Number(max))
-            // if(min === 0 && max === 0 && state.productsToShow.length > 0) {
-            //     state.products = state.productsToShow
-            // }else {
-            //     state.products = state.initialItems
-            // }
-        },
-        showSelectedNumberProductsPerPage(state, action) { 
-            if(parseInt(action.payload.number)) {
-                state.products = state.initialItems.slice(0, Number(action.payload.number))
-            }
-            
         }
     },
     extraReducers: {
