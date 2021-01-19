@@ -18,10 +18,14 @@ const initialState = {
     cartPageSetProducts: [],
     status: '',
     error: null,
+    initialItems: [],
     products: [],
     totalItems: 0,
-    page: 0,
     origins: [],
+    page: 0,
+    productsToShow: [],
+    showedOrigins: [],
+
 }
 
 export const productsSlice = createSlice({
@@ -63,11 +67,29 @@ export const productsSlice = createSlice({
                 state.sumOfPricesAddedProducts += price
             }    
         },
-        handleCheckbox(state, action) {
-            state.origins.forEach(arr => 
-                action.payload.name === arr[0] ? [...arr, 
-                    arr[1] = !arr[1]] : null     
-            )
+        showSelectedOrigins(state, action) {
+            const { checked, origin } = action.payload
+            if(checked === true) {
+                state.products = state.initialItems.filter(product =>
+                    product.origin === origin
+                )
+                state.showedOrigins.push(action.payload.origin)
+            }else if(checked === false && state.showedOrigins.includes(origin)) {
+                state.products = state.products.filter(product => 
+                    product.origin !== origin      
+                )
+                state.showedOrigins = state.showedOrigins.filter(ori => origin !== ori)
+                state.productsToShow = state.productsToShow.filter(product => 
+                    product.origin !== origin)
+            }
+            if (state.products.length === 0) {
+                state.products = state.initialItems
+            }else {
+                state.productsToShow = [...state.productsToShow, ...state.products]
+                state.products = state.productsToShow
+            }
+           
+            
         },
     },
     extraReducers: {
@@ -77,18 +99,18 @@ export const productsSlice = createSlice({
         [fetchProducts.fulfilled]: (state, action) => {
             const { totalItems, items, page } = action.payload 
             const mapArray = new Map()
-            state.products = items
             state.page = page
             state.totalItems = totalItems
+            state.products = items
             state.status = 'succeeded'
             state.error = undefined
-            state.origin = items.forEach(product => 
+            state.initialItems = items
+            items.forEach(product => 
                 !mapArray.has(product.origin) 
                     ? mapArray.set(product.origin, false)
                     : null     
             )
             state.origins = [...mapArray]
-            
         },
         [fetchProducts.rejected]: (state, action) => {
             state.status = 'failed'
@@ -107,6 +129,7 @@ export const {
     subtractProductFromCart,
     subtractFromAddedProducts,
     takesDataFromInput,
-    handleCheckbox
+    handleCheckbox,
+    showSelectedOrigins
 
 } = productsSlice.actions
