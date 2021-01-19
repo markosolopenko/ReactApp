@@ -15,7 +15,7 @@ const FilterOrigin = () => {
             { 
                 origins.map((origin, id) => 
                     <FilterOriginElement 
-                        origin={origin[0]}
+                        origin={origin}
                         key={id} 
                     />    
                 )

@@ -23,8 +23,7 @@ const initialState = {
     totalItems: 0,
     page: 0,
     productsToShow: [],
-    showedOrigins: [],
-
+    origins: [],
 }
 
 export const productsSlice = createSlice({
@@ -70,20 +69,33 @@ export const productsSlice = createSlice({
             const { checked, origin } = action.payload
             if(checked === true) {
                 state.products = state.initialItems.filter(product => product.origin === origin)
-                state.showedOrigins.push(action.payload.origin)
-            }else if(checked === false && state.showedOrigins.includes(origin)) {
-                state.products = state.products.filter(product => product.origin !== origin)
-                state.showedOrigins = state.showedOrigins.filter(ori => origin !== ori)
-                state.productsToShow = state.productsToShow.filter(product => product.origin !== origin)
-            }
-            if (state.products.length === 0) {
-                state.products = state.initialItems
-            }else {
                 state.productsToShow = [...state.productsToShow, ...state.products]
                 state.products = state.productsToShow
             }
-           
+            if(checked === false) {
+                state.products = state.products.filter(product => product.origin !== origin)
+                state.productsToShow = state.products
+            }
+            if (state.products.length === 0) {
+                state.products = state.initialItems
+            }
         },
+        showProductsByPrices(state, action) {
+            const {min, max} = action.payload
+            state.products = state.initialItems.filter(
+                product => Number(product.price) >= Number(min) && Number(product.price) <= Number(max))
+            // if(min === 0 && max === 0 && state.productsToShow.length > 0) {
+            //     state.products = state.productsToShow
+            // }else {
+            //     state.products = state.initialItems
+            // }
+        },
+        showSelectedNumberProductsPerPage(state, action) { 
+            if(parseInt(action.payload.number)) {
+                state.products = state.initialItems.slice(0, Number(action.payload.number))
+            }
+            
+        }
     },
     extraReducers: {
         [fetchProducts.pending]: (state) => {
@@ -97,6 +109,8 @@ export const productsSlice = createSlice({
             state.status = 'succeeded'
             state.error = undefined
             state.initialItems = items
+            items.forEach(product => 
+                !state.origins.includes(product.origin) ? state.origins.push(product.origin): null)
         },
         [fetchProducts.rejected]: (state, action) => {
             state.status = 'failed'
@@ -116,6 +130,8 @@ export const {
     subtractFromAddedProducts,
     takesDataFromInput,
     handleCheckbox,
-    showSelectedOrigins
+    showSelectedOrigins,
+    showProductsByPrices,
+    showSelectedNumberProductsPerPage
 
 } = productsSlice.actions
