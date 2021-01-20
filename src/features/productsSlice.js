@@ -4,8 +4,8 @@ import { getProducts } from '../api/getProducts';
 
 export const fetchProducts = createAsyncThunk(
     "api/getProducts",
-    async () => {
-        return await getProducts()
+    async (page) => {
+        return await getProducts(page)
     } 
 )
 
@@ -18,10 +18,10 @@ const initialState = {
     cartPageSetProducts: [],
     status: '',
     error: null,
+    totalItems: 0,
+    page: 1,
     initialItems: [],
     products: [],
-    totalItems: 0,
-    page: 0,
     productsToShow: [],
     origins: [],
 }
@@ -76,7 +76,7 @@ export const productsSlice = createSlice({
         },
         showProductsByPrices(state, action) {
             const {min, max} = action.payload
-            state.products = state.productsToShow.filter(product => 
+            state.products = state.initialItems.filter(product => 
                 Number(product.price) >= Number(min) && Number(product.price) <= Number(max))
             if(min === 0 && max === 0) {
                 state.products = state.productsToShow
@@ -96,20 +96,20 @@ export const productsSlice = createSlice({
             if (state.products.length === 0) {
                 state.products = state.initialItems
             }
-        }
+        },
+
     },
     extraReducers: {
         [fetchProducts.pending]: (state) => {
             state.status = 'loading'
         },
         [fetchProducts.fulfilled]: (state, action) => {
-            const { totalItems, items, page } = action.payload 
-            state.page = page
+            const { totalItems, items } = action.payload 
             state.totalItems = totalItems
-            state.products = items
+            state.products = [...state.products, ...items]
             state.status = 'succeeded'
             state.error = undefined
-            state.initialItems = items
+            state.initialItems = [...state.initialItems, ...items]
             items.forEach(product => 
                 !state.origins.includes(product.origin) ? state.origins.push(product.origin): null)
         },

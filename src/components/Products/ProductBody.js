@@ -13,7 +13,10 @@ const Products = (props) => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(fetchProducts())
+        for(let i = 1; i <= 4; i++) {
+            dispatch(fetchProducts(i))
+        }
+        
     }, [dispatch])
     return (
         <div className="productsContainer">
