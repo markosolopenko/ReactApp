@@ -1,24 +1,31 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Products from '../../components/Products/ProductBody'
 import HeaderOfPage from '../../components/Header/HeaderOfPage'
 import {countGenerallyAddedProducts,
         setProductToDetailsPage,
         addProductsToCartPage,
         addProductsToCartPageSet, 
+        fetchProducts
 } from '../../features/productsSlice';
 
 import Filters from "../../components/Filters/filters";
 import BigPhoto from '../../components/Products/BigPhoto';
+import Pagination from '../../components/Pagination/Pagination';
 
 // redux 
 import { useSelector, useDispatch } from 'react-redux';
 
 const MainPage = () => {
-    const store = useSelector(state => state)
+    const store = useSelector(state => state.productsSlice)
     const dispatch = useDispatch()
 
-    const { amountAddedProducts, sumOfPricesAddedProducts } = store.productsSlice
+    const { amountAddedProducts, sumOfPricesAddedProducts } = store
 
+    useEffect(() => {
+        for(let i = 1; i <= 4; i++) {
+            dispatch(fetchProducts(i))
+        }
+    }, [dispatch])
     const addProductToDetailsPage = (product) => {
         dispatch(setProductToDetailsPage({product: product}))
     }
@@ -41,6 +48,7 @@ const MainPage = () => {
                 addToCart={addToCart} 
                 addProductToDetails={addProductToDetailsPage} 
             />
+            <Pagination />
         </div>
     )
 }

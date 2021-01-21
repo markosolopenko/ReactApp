@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom'
 
+
 // Local imports
 import MainPage from './pages/MainPage/MainPage'
 import ProductsDetail from './pages/DetailPage/ProductsDetail'

@@ -4,8 +4,8 @@ import { getProducts } from '../api/getProducts';
 
 export const fetchProducts = createAsyncThunk(
     "api/getProducts",
-    async (page) => {
-        return await getProducts(page)
+    async (page, perPage) => {
+        return await getProducts(page, perPage)
     } 
 )
 
@@ -24,6 +24,9 @@ const initialState = {
     products: [],
     productsToShow: [],
     origins: [],
+    perPage: 0,
+    range: 1,
+    currPage: []
 }
 
 export const productsSlice = createSlice({
@@ -65,13 +68,19 @@ export const productsSlice = createSlice({
                 state.sumOfPricesAddedProducts += price
             }    
         },
-        showSelectedNumberProductsPerPage(state, action) { 
-            if(parseInt(action.payload.number)) {
-                state.products = state.initialItems.slice(0, Number(action.payload.number))
+        productsPerPage(state, action) {
+            state.perPage = action.payload.number
+        },
+        showSelectedNumberProductsPerPage(state) {
+            if(parseInt(state.perPage)) {
+                let indexOfLast = state.page * state.perPage
+                let indexOfFirst = indexOfLast - Number(state.perPage)
+                state.products = state.initialItems.slice(indexOfFirst, indexOfLast)
                 state.productsToShow = state.products
             }else {
                 state.products = state.initialItems
                 state.productsToShow = state.products
+                state.range = 1
             }  
         },
         showProductsByPrices(state, action) {
@@ -97,6 +106,18 @@ export const productsSlice = createSlice({
                 state.products = state.initialItems
             }
         },
+        setPage(state, action) {
+            state.page = action.payload.page
+        },
+        setRange(state) {
+            state.range = Math.ceil(state.totalItems / state.perPage)
+        },
+        handleArrowBack(state) {
+            state.page -= 1
+        },
+        handleArrowForward(state) {
+            state.page += 1
+        }
 
     },
     extraReducers: {
@@ -133,6 +154,11 @@ export const {
     handleCheckbox,
     showSelectedOrigins,
     showProductsByPrices,
-    showSelectedNumberProductsPerPage
+    showSelectedNumberProductsPerPage,
+    setPage,
+    productsPerPage,
+    setRange,
+    handleArrowBack,
+    handleArrowForward
 
 } = productsSlice.actions
