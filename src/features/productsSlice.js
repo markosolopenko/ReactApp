@@ -76,10 +76,8 @@ export const productsSlice = createSlice({
                 let indexOfLast = state.page * state.perPage
                 let indexOfFirst = indexOfLast - Number(state.perPage)
                 state.products = state.initialItems.slice(indexOfFirst, indexOfLast)
-                state.productsToShow = state.products
             }else {
                 state.products = state.initialItems
-                state.productsToShow = state.products
                 state.range = 1
             }  
         },
@@ -103,7 +101,14 @@ export const productsSlice = createSlice({
                 state.productsToShow = state.products
             }
             if (state.products.length === 0) {
-                state.products = state.initialItems
+                if(parseInt(state.perPage)) {
+                    let indexOfLast = state.page * state.perPage
+                    let indexOfFirst = indexOfLast - Number(state.perPage)
+                    state.products = state.initialItems.slice(indexOfFirst, indexOfLast)
+                }else {
+                    state.products = state.initialItems
+                }
+                
             }
         },
         setPage(state, action) {
