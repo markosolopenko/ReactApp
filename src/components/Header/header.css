@@ -72,7 +72,7 @@
     align-items: center;
   }
   .bigPhoto > img {
-    width: 1838px;
+    width: 100%;
     height: 410px;
     margin-bottom: 20px;
   }

@@ -4,8 +4,8 @@ import { getProducts } from '../api/getProducts';
 
 export const fetchProducts = createAsyncThunk(
     "api/getProducts",
-    async (page, perPage) => {
-        return await getProducts(page, perPage)
+    async (page) => {
+        return await getProducts(page)
     } 
 )
 
@@ -24,7 +24,7 @@ const initialState = {
     products: [],
     productsToShow: [],
     origins: [],
-    perPage: 0,
+    perPage: '',
     range: 1,
     currPage: [],
 }
@@ -70,6 +70,7 @@ export const productsSlice = createSlice({
         },
         productsPerPage(state, action) {
             state.perPage = action.payload.number
+            
         },
         showSelectedNumberProductsPerPage(state) {
             if(parseInt(state.perPage)) {
@@ -84,9 +85,18 @@ export const productsSlice = createSlice({
         showProductsByPrices(state, action) {
             const {min, max} = action.payload
             state.products = state.initialItems.filter(product => 
-                Number(product.price) >= Number(min) && Number(product.price) <= Number(max))
+                state.products.includes(product) &&
+                Number(product.price) >= Number(min) && 
+                Number(product.price) <= Number(max))
             if(min === 0 && max === 0) {
-                state.products = state.productsToShow
+                if(parseInt(state.perPage)) {
+                    let indexOfLast = state.page * state.perPage
+                    let indexOfFirst = indexOfLast - Number(state.perPage)
+                    state.products = state.initialItems.slice(indexOfFirst, indexOfLast)
+                }else {
+                    state.products = state.initialItems
+                }
+                
             }
         },
         showSelectedOrigins(state, action) {
@@ -130,12 +140,12 @@ export const productsSlice = createSlice({
             state.status = 'loading'
         },
         [fetchProducts.fulfilled]: (state, action) => {
-            const { totalItems, items } = action.payload 
+            const { totalItems, items } = action.payload    
             state.totalItems = totalItems
-            state.products = [...state.products, ...items]
+            state.products = items
             state.status = 'succeeded'
             state.error = undefined
-            state.initialItems = [...state.initialItems, ...items]
+            state.initialItems = items
             items.forEach(product => 
                 !state.origins.includes(product.origin) ? state.origins.push(product.origin): null)
         },
