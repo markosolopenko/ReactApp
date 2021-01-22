@@ -1,9 +1,6 @@
 
   
   /* Header styles */
-  .container {
-    background-color: rgb(245, 242, 238);
-  }
   .toolbar {
     display: flex;
     align-items: center;

@@ -2,6 +2,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    margin: 50px 0 50px 0;
+}
+
+.sliderPagination {
+    display: flex;
+    align-items: center;
 }
 
 .numberOfPageButton {
@@ -31,11 +38,9 @@
     align-items: center;
     width: 30px;
     height: 30px;
-    background-color: white;
+    background-color:#2f2666;
     border-radius: 6px;
-    margin-right: 7px;
-    border: 2px solid #2f2666;
-
+    margin-right: 3px;
 }
 .arrowForwardPaginationDiv {
     display: flex;
@@ -43,29 +48,29 @@
     align-items: center;
     width: 30px;
     height: 30px;
-    background-color: white;
+    background-color:#2f2666;
     border-radius: 6px;
-
-    border: 2px solid #2f2666;
+    margin-left: -4px;
 }
 .arrowBackPagination, .arrowForwardPagination {
     width: 20px;
     height: 20px;
-    color: #2f2666;
-    cursor: pointer;
+    color: white;
 }
 .arrowBackPaginationDiv:hover, .arrowForwardPaginationDiv:hover {
-    background-color: #2f2666;
+    background-color: white;
+    cursor: pointer;
 }
 .arrowBackPaginationDiv:hover .arrowBackPagination, 
 .arrowForwardPaginationDiv:hover .arrowForwardPagination{
-    color: white;
+    color: #2f2666;
 }
 
 .currentPage {
     display: flex;
     align-items: center;
     justify-content: center;
+
     width: 45px;
     height: 45px;
     border-radius: 10px;
@@ -76,3 +81,4 @@
     color: white;
     cursor: pointer;
 }
+

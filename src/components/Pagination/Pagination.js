@@ -14,46 +14,44 @@ const Pagination = () => {
     const dispatch = useDispatch()
     const range = () => {
         const range = []
-        const number = store.range
-        for(let i = 1; i < number; i++) {
+        for(let i = 1; i <= store.range; i++) {
             range.push(i)
         }
         return range;
     }
     const rangeOfPages = range()
+
     const handleArrowBackFunc = () => {
         if(store.page > 1) {
             dispatch(handleArrowBack())
             dispatch(showSelectedNumberProductsPerPage())
-        }
-        
+        } 
     }
     const handleArrowForwardFunc = () => {
-        if(store.page < store.range-1) {
+        if(store.page < store.range) {
             dispatch(handleArrowForward())
             dispatch(showSelectedNumberProductsPerPage())
         } 
-       
     }
-
-
     return (
         <div className="pagination">
-            <div className="arrowBackPaginationDiv" 
-                 onClick={handleArrowBackFunc}>
-                <ArrowBack className="arrowBackPagination" />
-            </div>
-            {
-               rangeOfPages.map((number, index) =>
-                    <PaginationElement 
-                        number={number}
-                        key={index} 
-                    />
-               ) 
-            }
-            <div className="arrowForwardPaginationDiv" 
-                 onClick={handleArrowForwardFunc}>
-                <ArrowForward className="arrowForwardPagination" />
+            <div className="sliderPagination">
+                <div className="arrowBackPaginationDiv" 
+                    onClick={handleArrowBackFunc}>
+                    <ArrowBack className="arrowBackPagination" />
+                </div>
+                {
+                    rangeOfPages.map((number, index) =>
+                            <PaginationElement 
+                                number={number}
+                                key={index} 
+                            />
+                    ) 
+                }
+                <div className="arrowForwardPaginationDiv" 
+                    onClick={handleArrowForwardFunc}>
+                    <ArrowForward className="arrowForwardPagination" />
+                </div>
             </div>
         </div>
     )

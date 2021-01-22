@@ -1,5 +1,8 @@
 /* stylization  of the body content */
-
+.container {
+  background-color: rgb(245, 242, 238);
+  height: 1400px;
+}
 .productsContainer {
     display: flex;
     flex-wrap: wrap;

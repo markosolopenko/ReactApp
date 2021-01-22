@@ -26,7 +26,7 @@ const initialState = {
     origins: [],
     perPage: 0,
     range: 1,
-    currPage: []
+    currPage: [],
 }
 
 export const productsSlice = createSlice({
@@ -110,15 +110,15 @@ export const productsSlice = createSlice({
             state.page = action.payload.page
         },
         setRange(state) {
-            state.range = Math.ceil(state.totalItems / state.perPage)
+            state.range = Math.ceil(state.initialItems.length / state.perPage)
+            state.page = 1
         },
         handleArrowBack(state) {
             state.page -= 1
         },
         handleArrowForward(state) {
             state.page += 1
-        }
-
+        },
     },
     extraReducers: {
         [fetchProducts.pending]: (state) => {
@@ -159,6 +159,7 @@ export const {
     productsPerPage,
     setRange,
     handleArrowBack,
-    handleArrowForward
+    handleArrowForward,
+    movingSlider,
 
 } = productsSlice.actions

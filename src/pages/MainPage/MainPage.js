@@ -22,9 +22,7 @@ const MainPage = () => {
     const { amountAddedProducts, sumOfPricesAddedProducts } = store
 
     useEffect(() => {
-        for(let i = 1; i <= 4; i++) {
-            dispatch(fetchProducts(i))
-        }
+        dispatch(fetchProducts(1))
     }, [dispatch])
     const addProductToDetailsPage = (product) => {
         dispatch(setProductToDetailsPage({product: product}))

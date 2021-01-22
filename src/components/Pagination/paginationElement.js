@@ -9,13 +9,17 @@ const PaginationElement = (props) => {
     const dispatch = useDispatch()
     const store = useSelector(state => state.productsSlice)
     const handleChange = () => {
-        dispatch(setPage({page: props.number}))
-        dispatch(showSelectedNumberProductsPerPage())  
+        if(parseInt(props.number)) {
+            dispatch(setPage({page: props.number}))
+            dispatch(showSelectedNumberProductsPerPage())
+        }
     }
 
     return (
-        <div className={props.number === store.page ? "currentPage":"numberOfPageButton"}
-             onClick={handleChange}>{props.number}</div>
+        <div className={props.number === store.page ? "currentPage": "numberOfPageButton"}
+             onClick={handleChange}
+        > {props.number}
+        </div>
     )
 }
 
