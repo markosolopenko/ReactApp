@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import PaginationElement from './paginationElement';
 import { useDispatch, useSelector } from 'react-redux';
 import './pagination.css';
@@ -12,6 +12,8 @@ import {handleArrowForward,
 const Pagination = () => {
     const store =  useSelector(state => state.productsSlice)
     const dispatch = useDispatch()
+    const slider = useRef()
+
     const range = () => {
         const range = []
         for(let i = 1; i <= store.range; i++) {
@@ -35,7 +37,7 @@ const Pagination = () => {
     }
     return (
         <div className="pagination">
-            <div className="sliderPagination">
+            <div className="sliderPagination" ref={slider}>
                 <div className="arrowBackPaginationDiv" 
                     onClick={handleArrowBackFunc}>
                     <ArrowBack className="arrowBackPagination" />
@@ -45,6 +47,7 @@ const Pagination = () => {
                             <PaginationElement 
                                 number={number}
                                 key={index} 
+                                slider={slider}
                             />
                     ) 
                 }

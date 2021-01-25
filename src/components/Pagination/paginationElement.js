@@ -14,7 +14,6 @@ const PaginationElement = (props) => {
             dispatch(showSelectedNumberProductsPerPage())
         }
     }
-
     return (
         <div className={props.number === store.page ? "currentPage": "numberOfPageButton"}
              onClick={handleChange}

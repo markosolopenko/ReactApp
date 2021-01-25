@@ -12,7 +12,6 @@ const FilterElementsOnPage = () => {
         dispatch(setRange())
         dispatch(showSelectedNumberProductsPerPage())
     }
-
     return (
         <div className="amountPerPage">
             <div className="perPageTitle">Number per page: </div>

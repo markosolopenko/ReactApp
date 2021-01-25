@@ -76,4 +76,8 @@
     height: 410px;
     margin-bottom: 20px;
   }
-  
+
+.link {
+  text-decoration: none;
+}
+

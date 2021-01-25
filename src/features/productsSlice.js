@@ -9,7 +9,6 @@ export const fetchProducts = createAsyncThunk(
     } 
 )
 
-
 const initialState = {
     amountAddedProducts: 0,
     sumOfPricesAddedProducts: 0,
@@ -84,15 +83,21 @@ export const productsSlice = createSlice({
         },
         showProductsByPrices(state, action) {
             const {min, max} = action.payload
-            state.products = state.initialItems.filter(product => 
-                state.products.includes(product) &&
-                Number(product.price) >= Number(min) && 
-                Number(product.price) <= Number(max))
+            if(state.products.length === 0)
+                state.products = state.initialItems.filter(product => 
+                    Number(product.price) >= Number(min) && 
+                    Number(product.price) <= Number(max))
+            else {
+                state.products = state.initialItems.filter(product => 
+                    state.products.includes(product) &&
+                    Number(product.price) >= Number(min) && 
+                    Number(product.price) <= Number(max))
+            }
             if(min === 0 && max === 0) {
                 if(parseInt(state.perPage)) {
                     let indexOfLast = state.page * state.perPage
                     let indexOfFirst = indexOfLast - Number(state.perPage)
-                    state.products = state.initialItems.slice(indexOfFirst, indexOfLast)
+                    state.products = state.initialItems.slice(indexOfFirst, indexOfLast) 
                 }else {
                     state.products = state.initialItems
                 }
@@ -102,13 +107,25 @@ export const productsSlice = createSlice({
         showSelectedOrigins(state, action) {
             const { checked, origin } = action.payload
             if(checked === true) {
-                state.products = state.initialItems.filter(product => product.origin === origin)
+                state.products = state.initialItems.filter(product => 
+                    product.origin === origin
+                )
                 state.productsToShow = [...state.productsToShow, ...state.products]
                 state.products = state.productsToShow
             }
             if(checked === false) {
-                state.products = state.products.filter(product => product.origin !== origin)
+                if(!parseInt(state.perPage)) {
+                    state.products = state.products.filter(product => 
+                        product.origin !== origin
+                    )
+                    state.productsToShow = state.products
+                }else {
+                    let indexOfLast = state.page * state.perPage
+                    let indexOfFirst = indexOfLast - Number(state.perPage)
+                    state.products = state.initialItems.slice(indexOfFirst, indexOfLast)
+                }
                 state.productsToShow = state.products
+                
             }
             if (state.products.length === 0) {
                 if(parseInt(state.perPage)) {
