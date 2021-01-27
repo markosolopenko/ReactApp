@@ -1,11 +1,25 @@
 import React from 'react';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
+import './editForm.css';
+import FormForAddAndEditProduct from '../formForAddOrEditProduct/Form';
+
+
 
 const EditForm = () => {
     return (
         <div className="editForm">
-
+            <FormForAddAndEditProduct />
+            <button 
+                type="reset" 
+                className="resetFormButton"
+            >
+                RESET
+            </button>
+            <button 
+                type="cancel" 
+                className="cancelChangesButton"
+            >
+                CANCEL
+            </button>
         </div>
     )
 }

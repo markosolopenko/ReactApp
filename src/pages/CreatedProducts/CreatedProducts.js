@@ -1,35 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import '../../components/Header/HeaderOfPage';
 import HeaderOfPage from '../../components/Header/HeaderOfPage';
 import './createdProductsPage.css';
 import CreatedElement from '../../components/CreatedProductsCompoents/CreatedElement';
 import Filters from '../../components/Filters/filters';
 import Pagination from '../../components/Pagination/Pagination';
+import EditForm from '../../components/Forms/EditForm/EditForm';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchCreatedProducts } from '../../features/formSlice';
+
 
 const CreatedProducts = () => {
-    const [products, setProducts] = useState([{
-        name: '',
-        price: '',
-        origin: ''
-    }])
+    const formEdit = document.querySelector('.editForm');
+    const dispatch = useDispatch()
+    const store = useSelector(state => state.formSlice)
+
     useEffect(() => {
-        fetch('/products/createdProducts').then(res => {
-            if(res.ok) {
-                return res.json()
-            }
-        }).then(jsonRes => setProducts(jsonRes));
-    })
+        dispatch(fetchCreatedProducts())
+    }, [dispatch])
     return (
         <div className="createdProductsPage">
             <HeaderOfPage />
+            <EditForm />
             <Filters />
             <div className="createdProductsContainer">
-                {products.map((product, id) => 
+                {store.products.map((product, id) => 
                     <div key={id} className="product">
-                        <CreatedElement 
-                                name={product.name}
-                                price={product.price} 
-                                origin={product.origin}
+                        <CreatedElement
+                            form={formEdit}
+                            name={product.name}
+                            price={product.price} 
+                            origin={product.origin}
+                            id={product._id}
                         />
                     </div>
                 )}
