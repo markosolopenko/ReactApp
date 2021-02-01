@@ -1,19 +1,18 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import './createdElement.css';
 import {ReactComponent as EditSvg} from '../../assets/edit.svg';
-import { fetchCreatedProductsById } from '../../features/formSlice';
-import { useSelector, useDispatch } from 'react-redux';
+import EditForm from '../Forms/EditForm/EditForm';
 
 
-const CreatedElement = ({ name, price, origin, form, id }) => {
-    const dispatch = useDispatch()
-
-    const openEditForm = () => {
-        dispatch(fetchCreatedProductsById(id))
-        if(form.style.display === '') {
-            form.style.display = 'block'
-        }else {
-            form.style.display = ''
+const CreatedElement = ({ name, price, origin, id }) => {
+    const form = useRef()
+    const buttonReset = useRef()
+    const buttonCancel = useRef()
+    const openForm = () => {
+        if(form.current.style.display === '') {
+            form.current.style.display = 'block'
+            buttonCancel.current.style.display = 'block'
+            buttonReset.current.style.display = 'block'
         }
     }
     return (
@@ -23,12 +22,18 @@ const CreatedElement = ({ name, price, origin, form, id }) => {
                 <div className="addedProductPrice">Price: {price}$</div>
                 <div className="addedProductOrigin">Origin: {origin}</div>
             </div>
-            <div className="editCreatedElement" onClick={openEditForm}>
+            <div className="editCreatedElement" onClick={openForm}>
                 <button className="editCreatedElementButton">
                     <EditSvg className="editSvg" />
                     <div className="editText">Edit</div>
                 </button>
             </div>
+            <EditForm 
+                state={{name, price, origin}} 
+                form={form}
+                btnR={buttonReset}
+                btnC={buttonCancel}
+            />
         </div>
     )
 }

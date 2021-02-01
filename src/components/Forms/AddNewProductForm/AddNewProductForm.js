@@ -3,10 +3,12 @@ import {ReactComponent as OpenFormSVG} from '../../../assets/openForm.svg';
 import FormForAddAndEditProduct from '../formForAddOrEditProduct/Form';
 import axios from 'axios';
 import './addNewProductForm.css';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const AddNewProductForm = () => {
   const form = useRef()
+  const store = useSelector(state => state.formSlice)
 
   const openForm = () => {
     if(form.current.style.display === '') {
@@ -23,7 +25,6 @@ const AddNewProductForm = () => {
         origin: values.origin
       }
       axios.post('http://localhost:3001/products/create', newProduct)
-      window.location.reload()
     }, 400)
   } 
   return (
@@ -37,7 +38,7 @@ const AddNewProductForm = () => {
       <div className="formToAddNewProduct" ref={form}>
         <FormForAddAndEditProduct 
           handleSubmit={handleSubmit} 
-          initialValues={{name: '', price: '', origin: ''}} 
+          initState={{name: '', price: '', origin: ''}} 
         />
       </div>
     </div>

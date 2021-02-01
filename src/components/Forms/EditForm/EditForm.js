@@ -3,23 +3,16 @@ import './editForm.css';
 import FormForAddAndEditProduct from '../formForAddOrEditProduct/Form';
 
 
-
-const EditForm = () => {
+const EditForm = ({state, form, btnR, btnC}) => {
     return (
-        <div className="editForm">
-            <FormForAddAndEditProduct />
-            <button 
-                type="reset" 
-                className="resetFormButton"
-            >
-                RESET
-            </button>
-            <button 
-                type="cancel" 
-                className="cancelChangesButton"
-            >
-                CANCEL
-            </button>
+        <div className="editForm" ref={form}>
+            <FormForAddAndEditProduct
+                initState={state}
+                btnC={btnC}
+                btnR={btnR}
+                form={form}
+                // handleSubmit={} 
+            />
         </div>
     )
 }

@@ -3,10 +3,13 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import './addOrEditForm.css';
 
-const FormForAddAndEditProduct = ({handleSubmit, initialValues}) => {
+
+
+const FormForAddAndEditProduct = ({initState, handleSubmit, btnC, btnR, form}) => {
     return (
+      <div className="form">
         <Formik 
-          initialValues={initialValues}
+          initialValues={initState}
           validationSchema={Yup.object({
             name: Yup.string()
             .min(3, 'Required Min 3 symbols!!!')
@@ -20,13 +23,20 @@ const FormForAddAndEditProduct = ({handleSubmit, initialValues}) => {
               .oneOf(['ASIA', 'USA', 'EUROPE', 'AFRICA'], "Invalid Origin")
               .required('Required!!!')
           })}
-          onSubmit={(values, {setSubmitting} )=> {
+          onSubmit={(values, {setSubmitting, resetForm} )=> {
               setSubmitting(true)
               handleSubmit(values)
+              resetForm({
+                values: {
+                  name: '',
+                  price: '',
+                  origin: ''
+                }
+              })
               setSubmitting(false);
           }}
         >
-        {({ isSubmitting, dirty }) => (
+        {({ isSubmitting, dirty, resetForm }) => (
           <Form className="addProductForm">
             <label htmlFor="name" className="label"></label>
             <Field 
@@ -68,9 +78,30 @@ const FormForAddAndEditProduct = ({handleSubmit, initialValues}) => {
             >
               Submit
             </button>
+            <button 
+                type="reset" 
+                className="resetFormButton"
+                ref={btnR}
+                onClick={() => {
+                  resetForm({values: initState})
+                }}
+            >
+                RESET
+            </button>
+            <button 
+                ref={btnC}
+                type="cancel" 
+                className="cancelChangesButton"
+                onClick={() => {
+                  form.current.style.display = ''
+                }}
+            >
+                CANCEL
+            </button>
           </Form>
         )}
         </Formik>
+      </div>
     )
 }
 
