@@ -3,12 +3,12 @@ import {ReactComponent as OpenFormSVG} from '../../../assets/openForm.svg';
 import FormForAddAndEditProduct from '../formForAddOrEditProduct/Form';
 import axios from 'axios';
 import './addNewProductForm.css';
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
 
 
 const AddNewProductForm = () => {
   const form = useRef()
-  const store = useSelector(state => state.formSlice)
+
 
   const openForm = () => {
     if(form.current.style.display === '') {
@@ -26,6 +26,7 @@ const AddNewProductForm = () => {
       }
       axios.post('http://localhost:3001/products/create', newProduct)
     }, 400)
+    window.location.reload()
   } 
   return (
     <div className="addNewProductForm">

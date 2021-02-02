@@ -9,7 +9,7 @@ const FormForAddAndEditProduct = ({initState, handleSubmit, btnC, btnR, form}) =
     return (
       <div className="form">
         <Formik 
-          initialValues={initState}
+          initialValues={!initState ? {name: '', price: '', origin: ''}: initState}
           validationSchema={Yup.object({
             name: Yup.string()
             .min(3, 'Required Min 3 symbols!!!')
@@ -26,13 +26,6 @@ const FormForAddAndEditProduct = ({initState, handleSubmit, btnC, btnR, form}) =
           onSubmit={(values, {setSubmitting, resetForm} )=> {
               setSubmitting(true)
               handleSubmit(values)
-              resetForm({
-                values: {
-                  name: '',
-                  price: '',
-                  origin: ''
-                }
-              })
               setSubmitting(false);
           }}
         >

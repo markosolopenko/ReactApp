@@ -33,6 +33,7 @@ const CreatedElement = ({ name, price, origin, id }) => {
                 form={form}
                 btnR={buttonReset}
                 btnC={buttonCancel}
+                id={id}
             />
         </div>
     )

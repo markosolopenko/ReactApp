@@ -17,9 +17,7 @@ export const fetchCreatedProductsById = createAsyncThunk(
 export const formSlice = createSlice({
     name: 'formSlice',
     initialState: {
-        products: [ {name: 'Marko', price: '222', origin: 'ASIA'}, 
-                    {name: 'MarkoS', price: '222', origin: 'ASIA'},
-                    {name: 'MarkoSolope', price: '222', origin: 'ASIA'}],
+        products: [],
         productById: {},
         error: null,
         status: '',
