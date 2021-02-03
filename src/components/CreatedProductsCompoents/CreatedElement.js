@@ -3,7 +3,8 @@ import './createdElement.css';
 import {ReactComponent as EditSvg} from '../../assets/edit.svg';
 
 
-const CreatedElement = ({ name, price, origin, openForm, id}) => {
+const CreatedElement = ({ name, price, origin, openForm, id }) => {
+    const product = {name, price, origin}
     return (
         <div className="createdProductElement">
             <div className="createdProductCardInfo">
@@ -12,7 +13,7 @@ const CreatedElement = ({ name, price, origin, openForm, id}) => {
                 <div className="addedProductOrigin">Origin: {origin}</div>
             </div>
             <div className="editCreatedElement" 
-                 onClick={() => openForm({name, price, origin}, id)}
+                 onClick={() => openForm(product, id)}
             >
                 <button className="editCreatedElementButton">
                     <EditSvg className="editSvg" />

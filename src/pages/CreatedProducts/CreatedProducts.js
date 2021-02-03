@@ -15,7 +15,7 @@ const CreatedProducts = () => {
     const dispatch = useDispatch()
     const store = useSelector(state => state.formSlice)
     const form = useRef()
-    const openForm = ({id, ...state}) => {
+    const openForm = (state, id) => {
         dispatch(setId({id: id}))
         dispatch(setProductForEdit({product: state}))
         if(form.current.style.display === '') {
