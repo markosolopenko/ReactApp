@@ -7,10 +7,10 @@ import { Link } from 'react-router-dom'
 import './detailsBody.css'
 
 // Import Icons
-import {ReactComponent as Cart} from '../../../assets/cart.svg' 
-import {ReactComponent as Plus} from '../../../assets/plus.svg'
-import {ReactComponent as Minus} from '../../../assets/minus.svg'
-import {ReactComponent as ArrowBack} from '../../../assets/arrowBack.svg'
+import {ReactComponent as Cart} from '../../assets/cart.svg' 
+import {ReactComponent as Plus} from '../../assets/plus.svg'
+import {ReactComponent as Minus} from '../../assets/minus.svg'
+import {ReactComponent as ArrowBack} from '../../assets/arrowBack.svg'
 
 
 const DetailBody = (props) => {

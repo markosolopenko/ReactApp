@@ -43,7 +43,6 @@ const CartBodyElement = (props) => {
             setCounter(value) 
             dispatch(takesDataFromInput({count: value, price: value * product.price}))
             dispatch(subtractFromAddedProducts({count: counter, price: product.price * counter}))
-            console.log(value)
         }
     }
     const handleChange = (e) => {

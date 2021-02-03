@@ -30,7 +30,7 @@ const MainPage = () => {
     const addToCart = (price, product) => {
         dispatch(countGenerallyAddedProducts({count: 1, price: price}))
         dispatch(addProductsToCartPage({array: [product]} ))
-        if (!store.productsSlice.cartPageSetProducts.includes(product)) {
+        if (!store.cartPageSetProducts.includes(product)) {
             dispatch(addProductsToCartPageSet({product: product}))
         }
     }

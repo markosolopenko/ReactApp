@@ -2,7 +2,7 @@ import React from 'react'
 import { ReactComponent as CartSvg } from '../../assets/cart.svg'
 import './header.css'
 import { Link } from 'react-router-dom'
-import AddNewProductForm from '../Forms/AddNewProductForm/AddNewProductForm';
+import AddNewProductForm from '../Forms/AddOrEditProductForm/AddNewProductForm/AddNewProductForm';
 
 
 const HeaderOfPage = (props) => {
@@ -15,8 +15,11 @@ const HeaderOfPage = (props) => {
                     </div>
                 </Link>
                 <AddNewProductForm />
-                <Link to="/products/created">
-                    <div className="cratedProducts">CREATED PRODUCTS</div>
+                <Link to="/products/created" className="link">
+                    <div className="createdProductsLinkDiv">
+                        <div className="createdProductsLink">Created</div> 
+                        <div className="createdProductsLink">Products</div>
+                    </div>
                 </Link>
                 <div className="orderedProduct">
                     <Link to="/products/cartDetails">

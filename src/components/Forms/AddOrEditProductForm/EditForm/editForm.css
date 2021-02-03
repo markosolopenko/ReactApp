@@ -1,5 +1,5 @@
 .editForm {
-    position: absolute;
+    position: fixed;
     border-radius: 15px;
     background:linear-gradient(45deg, #2f2666,#534dbe);
     padding: 1rem;

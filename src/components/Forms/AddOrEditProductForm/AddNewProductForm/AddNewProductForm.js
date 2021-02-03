@@ -1,14 +1,12 @@
 import React, {useRef} from 'react';
-import {ReactComponent as OpenFormSVG} from '../../../assets/openForm.svg';
-import FormForAddAndEditProduct from '../formForAddOrEditProduct/Form';
+import {ReactComponent as OpenFormSVG} from '../../../../assets/openForm.svg';
+import FormForAddOrEditProduct from '../FormForAddOrEditProduct';
 import axios from 'axios';
 import './addNewProductForm.css';
-// import { useDispatch, useSelector } from 'react-redux';
 
 
 const AddNewProductForm = () => {
   const form = useRef()
-
 
   const openForm = () => {
     if(form.current.style.display === '') {
@@ -18,15 +16,12 @@ const AddNewProductForm = () => {
     }
   }
   const handleSubmit = (values) => {
-    setTimeout(() => {
-      const newProduct = {
-        name: values.name,
-        price: values.price,
-        origin: values.origin
-      }
-      axios.post('http://localhost:3001/products/create', newProduct)
-    }, 400)
-    window.location.reload()
+    const newProduct = {
+      name: values.name,
+      price: values.price,
+      origin: values.origin
+    }
+    axios.post('http://localhost:3001/products/create', newProduct)
   } 
   return (
     <div className="addNewProductForm">
@@ -37,9 +32,9 @@ const AddNewProductForm = () => {
         </button>
       </div>
       <div className="formToAddNewProduct" ref={form}>
-        <FormForAddAndEditProduct 
+        <FormForAddOrEditProduct 
           handleSubmit={handleSubmit} 
-          initState={{name: '', price: '', origin: ''}} 
+          state={{name: '', price: '', origin: ''}}
         />
       </div>
     </div>

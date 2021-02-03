@@ -1,20 +1,9 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import './createdElement.css';
 import {ReactComponent as EditSvg} from '../../assets/edit.svg';
-import EditForm from '../Forms/EditForm/EditForm';
 
 
-const CreatedElement = ({ name, price, origin, id }) => {
-    const form = useRef()
-    const buttonReset = useRef()
-    const buttonCancel = useRef()
-    const openForm = () => {
-        if(form.current.style.display === '') {
-            form.current.style.display = 'block'
-            buttonCancel.current.style.display = 'block'
-            buttonReset.current.style.display = 'block'
-        }
-    }
+const CreatedElement = ({ name, price, origin, openForm, id}) => {
     return (
         <div className="createdProductElement">
             <div className="createdProductCardInfo">
@@ -22,19 +11,14 @@ const CreatedElement = ({ name, price, origin, id }) => {
                 <div className="addedProductPrice">Price: {price}$</div>
                 <div className="addedProductOrigin">Origin: {origin}</div>
             </div>
-            <div className="editCreatedElement" onClick={openForm}>
+            <div className="editCreatedElement" 
+                 onClick={() => openForm({name, price, origin}, id)}
+            >
                 <button className="editCreatedElementButton">
                     <EditSvg className="editSvg" />
                     <div className="editText">Edit</div>
                 </button>
             </div>
-            <EditForm 
-                state={{name, price, origin}} 
-                form={form}
-                btnR={buttonReset}
-                btnC={buttonCancel}
-                id={id}
-            />
         </div>
     )
 }

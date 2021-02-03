@@ -18,23 +18,21 @@ export const formSlice = createSlice({
     name: 'formSlice',
     initialState: {
         products: [],
-        productById: {},
+        productById: {name: '', price: '', origin: ''},
         error: null,
         status: '',
-        formInitState: [],
-        editing: false
+        editing: false,
+        id: ''
     },
     reducers: {
-        setForAddProduct(state) {
-            state.productById = {name: 'Marko', price: '222', origin: 'ASIA'}
+        setProductForEdit(state, action) {
+            state.productById = action.payload.product
         },
-        setEditing(state, action) {
-            state.editing = action.payload.bool
+        resetEditForm(state, action) {
+            state.productById = action.payload.product
         },
-        getPorductById(state, action) {
-            state.productById = state.products.filter(product => 
-                product._id === action.payload.id
-            )
+        setId(state, action) {
+            state.id = action.payload.id
         }
     },
     extraReducers: {
@@ -44,18 +42,17 @@ export const formSlice = createSlice({
             state.error = null
         },
         // [fetchCreatedProductsById.fulfilled]: (state, action) => {
-        //     const {name, price, origin} = action.payload
         //     state.status = 'succeeded'
-        //     state.productById = {name, price, origin}
+        //     state.productById = action.payload
         //     state.error = null
         // }
     }
 })
 
 
-export const {
-    setForAddProduct, 
-    setEditing,
-    getPorductById
+export const { 
+    setProductForEdit,
+    setId,
+    resetEditForm
 } = formSlice.actions
 
