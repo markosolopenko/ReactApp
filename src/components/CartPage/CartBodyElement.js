@@ -7,8 +7,8 @@ import {subtractProductFromCart,
         subtractFromAddedProducts,
         addProductsToCartPage,
         takesDataFromInput,
-        setPriceOfSpecificProducts
 } from '../../features/productsSlice'
+import { setOrderedProductAmount } from '../../features/formSlice';
 
 // icons imports 
 import {ReactComponent as Plus} from '../../assets/plus.svg'
@@ -34,10 +34,12 @@ const CartBodyElement = (props) => {
     }) 
     useEffect(() => {
         setCounter(count)
-    }, [count])
+        dispatch(setOrderedProductAmount({name: product.name, amount: count}))
+    }, [count, dispatch, product.name])
     const addDataWhileChanging = (value) => { 
         if(value >= 0) {
             setCounter(value) 
+            dispatch(setOrderedProductAmount({name: product.name, amount: value}))
             dispatch(takesDataFromInput({count: value, price: value * product.price}))
             dispatch(subtractFromAddedProducts({count: counter, price: product.price * counter}))
         }

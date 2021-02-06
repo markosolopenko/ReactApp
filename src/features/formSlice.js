@@ -34,7 +34,8 @@ export const formSlice = createSlice({
         id: '',
         productByNickname: [],
         dateOfOrder: "",
-        nickname: ''
+        nickname: '',
+        orderedProducts: {}
     },
     reducers: {
         setProductForEdit(state, action) {
@@ -48,6 +49,10 @@ export const formSlice = createSlice({
         },
         setNickname(state, action) {
             state.nickname = action.payload.nickname
+        },
+        setOrderedProductAmount(state, action) {
+            const {name, amount} = action.payload
+            state.orderedProducts[name] = amount
         }
     },
     extraReducers: {
@@ -67,6 +72,7 @@ export const formSlice = createSlice({
                 state.productByNickname = action.payload.orderedProducts
                 state.error = undefined
                 state.dateOfOrder = action.payload.date 
+                state.orderedProducts = action.payload.amountOrderedProducts
             }
               
         },
@@ -79,6 +85,7 @@ export const {
     setId,
     resetEditForm,
     setDateOfOrder,
-    setNickname
+    setNickname,
+    setOrderedProductAmount
 } = formSlice.actions
 

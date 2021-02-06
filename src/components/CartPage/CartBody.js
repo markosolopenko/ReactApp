@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import CartBodyElement from './CartBodyElement'
 import './bodyCartPage.css'
 import axios from 'axios';
 
 const BodyCartPage = (props) => {
     const store = useSelector(state => state)
-    const dispatch = useDispatch()
+    const {orderedProducts} = store.formSlice
     const { cartPageSetProducts, 
             sumOfPricesAddedProducts,  
     } = store.productsSlice
@@ -16,7 +16,7 @@ const BodyCartPage = (props) => {
     const [reloaded, setReload] = useState(false)
     const handleOrderClick = () => {
         axios.post("http://localhost:3001/products/order", 
-            {dateOfOrder, nickname, cartPageSetProducts})
+            {dateOfOrder, nickname, orderedProducts, cartPageSetProducts})
         setTimeout(() => {
             setReload(true)
         }, 600)   
