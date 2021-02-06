@@ -17,7 +17,9 @@ const ProductElement = ({product, addToCart, addProductToDetails}) => {
                             onClick={() => addProductToDetails(product)}
                         >DETAIL PAGE</button>
                 </Link>
-                <button className="addToCard" onClick={() => addToCart(product.price, product)}>
+                <button className="addToCard" onClick={() => 
+                        addToCart(product.price, product)}
+                    >
                     <div className="addToCardText" >ADD TO CART</div>
                     <div className="cartSvg">
                         <CartSvg id="svg" />

@@ -7,7 +7,8 @@ import {subtractProductFromCart,
         subtractFromAddedProducts,
         addProductsToCartPage,
         takesDataFromInput,
-                              } from '../../features/productsSlice'
+        setPriceOfSpecificProducts
+} from '../../features/productsSlice'
 
 // icons imports 
 import {ReactComponent as Plus} from '../../assets/plus.svg'
@@ -36,10 +37,6 @@ const CartBodyElement = (props) => {
     }, [count])
     const addDataWhileChanging = (value) => { 
         if(value >= 0) {
-            // const array = [];
-            // for (let i = 0; i < value; i++) {
-            //     array.push(product)
-            // }
             setCounter(value) 
             dispatch(takesDataFromInput({count: value, price: value * product.price}))
             dispatch(subtractFromAddedProducts({count: counter, price: product.price * counter}))
@@ -93,7 +90,7 @@ const CartBodyElement = (props) => {
                     <Trash className="trash" />
                 </button>
             </div>
-        </div>
+        </div> 
     )
 }
 

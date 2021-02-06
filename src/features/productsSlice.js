@@ -26,6 +26,7 @@ const initialState = {
     perPage: '',
     range: 1,
     currPage: [],
+    priceOfSpecificProducts: 0
 }
 
 export const productsSlice = createSlice({
@@ -151,6 +152,9 @@ export const productsSlice = createSlice({
         handleArrowForward(state) {
             state.page += 1
         },
+        setPriceOfSpecificProducts(state, action) {
+            state.cartPageSetProducts = action.payload.totalSum 
+        }
     },
     extraReducers: {
         [fetchProducts.pending]: (state) => {
@@ -193,5 +197,6 @@ export const {
     handleArrowBack,
     handleArrowForward,
     movingSlider,
+    setPriceOfSpecificProducts
 
 } = productsSlice.actions

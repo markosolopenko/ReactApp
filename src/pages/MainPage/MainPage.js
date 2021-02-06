@@ -5,7 +5,7 @@ import {countGenerallyAddedProducts,
         setProductToDetailsPage,
         addProductsToCartPage,
         addProductsToCartPageSet, 
-        fetchProducts
+        fetchProducts,
 } from '../../features/productsSlice';
 
 import Filters from "../../components/Filters/filters";

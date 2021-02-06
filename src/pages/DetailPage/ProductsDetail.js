@@ -1,5 +1,5 @@
 import React from 'react'
-import DetailsBody from '../../components/DetailPageComponents/DetailsBody'
+import DetailsBody from '../../components/DetailPage/DetailsBody'
 import HeaderOfPage from '../../components/Header/HeaderOfPage'
 // Redux
 import { useSelector, useDispatch } from 'react-redux';

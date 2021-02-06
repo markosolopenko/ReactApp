@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getCreatedProducts, getCreatedProductsById } from '../api/getCreatedProducts';
+import { getOrderProductsByNickname } from '../api/getOrderProducts';
 
 export const fetchCreatedProducts = createAsyncThunk(
     "api/getCreatedProducts",
@@ -14,6 +15,14 @@ export const fetchCreatedProductsById = createAsyncThunk(
     }
 )
 
+export const fetchOrderProductsByNickname = createAsyncThunk(
+    "api/getOrderProductsByNickname",
+    async (nickname) => {
+        return await getOrderProductsByNickname(nickname)
+        
+    }
+)
+
 export const formSlice = createSlice({
     name: 'formSlice',
     initialState: {
@@ -22,7 +31,10 @@ export const formSlice = createSlice({
         error: null,
         status: '',
         editing: false,
-        id: ''
+        id: '',
+        productByNickname: [],
+        dateOfOrder: "",
+        nickname: ''
     },
     reducers: {
         setProductForEdit(state, action) {
@@ -33,19 +45,31 @@ export const formSlice = createSlice({
         },
         setId(state, action) {
             state.id = action.payload.id
+        },
+        setNickname(state, action) {
+            state.nickname = action.payload.nickname
         }
     },
     extraReducers: {
         [fetchCreatedProducts.fulfilled]: (state, action) => {
             state.status = 'succeeded'
             state.products = action.payload
+            state.error = undefined
+        },
+        [fetchCreatedProductsById.fulfilled]: (state, action) => {
+            state.status = 'succeeded'
+            state.productById = action.payload
             state.error = null
         },
-        // [fetchCreatedProductsById.fulfilled]: (state, action) => {
-        //     state.status = 'succeeded'
-        //     state.productById = action.payload
-        //     state.error = null
-        // }
+        [fetchOrderProductsByNickname.fulfilled]: (state, action) => {
+            if(action.payload) {
+                state.status = 'succeeded'
+                state.productByNickname = action.payload.orderedProducts
+                state.error = undefined
+                state.dateOfOrder = action.payload.date 
+            }
+              
+        },
     }
 })
 
@@ -53,6 +77,8 @@ export const formSlice = createSlice({
 export const { 
     setProductForEdit,
     setId,
-    resetEditForm
+    resetEditForm,
+    setDateOfOrder,
+    setNickname
 } = formSlice.actions
 

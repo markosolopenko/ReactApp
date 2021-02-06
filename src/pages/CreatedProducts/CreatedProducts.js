@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import '../../components/Header/HeaderOfPage';
 import HeaderOfPage from '../../components/Header/HeaderOfPage';
 import './createdProductsPage.css';
-import CreatedElement from '../../components/CreatedProductsCompoents/CreatedElement';
+import CreatedElement from '../../components/CreatedProducts/CreatedElement';
 import Filters from '../../components/Filters/filters';
 import Pagination from '../../components/Pagination/Pagination';
 import { useSelector, useDispatch } from 'react-redux';
@@ -15,6 +15,9 @@ const CreatedProducts = () => {
     const dispatch = useDispatch()
     const store = useSelector(state => state.formSlice)
     const form = useRef()
+    useEffect(() => {
+        dispatch(fetchCreatedProducts())
+    }, [dispatch])
     const openForm = (state, id) => {
         dispatch(setId({id: id}))
         dispatch(setProductForEdit({product: state}))
@@ -22,9 +25,6 @@ const CreatedProducts = () => {
             form.current.style.display = 'block'
         }
     }
-    useEffect(() => {
-        dispatch(fetchCreatedProducts())
-    }, [dispatch])
     return (
         <div className="createdProductsPage">
             <HeaderOfPage />
