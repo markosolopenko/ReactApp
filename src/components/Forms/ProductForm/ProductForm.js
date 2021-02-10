@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formik, Form, useField } from 'formik';
 import * as Yup from 'yup';
-import './addOrEditForm.css';
+import './productForm.css';
 
 
 const MyTextInput = ({label, ...props}) => {
@@ -29,7 +29,7 @@ const MySelect = ({label, ...props}) => {
   )
 }
 
-const FormForAddOrEditProduct = ({handleSubmit, state, form}) => {
+const ProductForm = ({handleSubmit, state, closeForm}) => {
     return (
         <Formik 
           enableReinitialize
@@ -96,17 +96,17 @@ const FormForAddOrEditProduct = ({handleSubmit, state, form}) => {
                     resetForm({values: state})
                   }}
                 >
-                  RESET
+                  Reset
                 </button>
                 <button 
                   type="button" 
                   className="cancelChangesButton"
                   onClick={() => {
-                  form.current.style.display = ''
+                    closeForm()
                     resetForm({values: state})
                   }}
                 >
-                  CANCEL
+                  Cancel
                 </button>
               </div> : 
               <div>
@@ -125,4 +125,4 @@ const FormForAddOrEditProduct = ({handleSubmit, state, form}) => {
     )
 }
 
-export default FormForAddOrEditProduct
+export default ProductForm

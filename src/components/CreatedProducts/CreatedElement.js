@@ -3,7 +3,7 @@ import './createdElement.css';
 import {ReactComponent as EditSvg} from '../../assets/edit.svg';
 
 
-const CreatedElement = ({ name, price, origin, openForm, id }) => {
+const CreatedElement = ({ name, price, origin, openForm, id}) => {
     const product = {name, price, origin}
     return (
         <div className="createdProductElement">

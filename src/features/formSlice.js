@@ -34,8 +34,9 @@ export const formSlice = createSlice({
         id: '',
         productByNickname: [],
         dateOfOrder: "",
-        nickname: '',
-        orderedProducts: {}
+        nickname: 'Timo',
+        orderedProducts: {},
+        isOpen: false
     },
     reducers: {
         setProductForEdit(state, action) {
@@ -53,6 +54,9 @@ export const formSlice = createSlice({
         setOrderedProductAmount(state, action) {
             const {name, amount} = action.payload
             state.orderedProducts[name] = amount
+        },
+        setIsOpen(state) {
+            state.isOpen = !state.isOpen
         }
     },
     extraReducers: {
@@ -69,12 +73,9 @@ export const formSlice = createSlice({
         [fetchOrderProductsByNickname.fulfilled]: (state, action) => {
             if(action.payload) {
                 state.status = 'succeeded'
-                state.productByNickname = action.payload.orderedProducts
+                state.productByNickname = action.payload
                 state.error = undefined
-                state.dateOfOrder = action.payload.date 
-                state.orderedProducts = action.payload.amountOrderedProducts
-            }
-              
+            }   
         },
     }
 })
@@ -86,6 +87,8 @@ export const {
     resetEditForm,
     setDateOfOrder,
     setNickname,
-    setOrderedProductAmount
+    setOrderedProductAmount,
+    setIsOpen
+    
 } = formSlice.actions
 

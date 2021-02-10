@@ -1,14 +1,28 @@
+.editModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+}
+
+
 .editForm {
     position: fixed;
+    top: 200px;
+    left: 40%;
     border-radius: 15px;
     background:linear-gradient(45deg, #2f2666,#534dbe);
     padding: 1rem;
-    width: 180px;
-    display: none; 
+    width: 430px; 
 }
  
+
+
 .resetFormButton, .cancelChangesButton {
-    width: 50px;
+    width: 160px;
     height: 30px;
     border-radius: 5px;
     border: none;
@@ -16,7 +30,7 @@
     color: #2f2666;
     font-weight: bold;
     margin-top: 10px;
-    font-size: 11px;
+    font-size: 16px;
     cursor: pointer;
     
 }
@@ -30,11 +44,12 @@
 }
 .resetFormButton {
     position: absolute;
-    bottom: 37px;
-    right: 15px;
+    right: 30px;
+    bottom: 40px;
+    
 }
 .cancelChangesButton {
-    position: absolute;
-    bottom: 3px;
-    right: 15px;
+  position: absolute;
+  right: 30px;
+  bottom: 5px;
 }

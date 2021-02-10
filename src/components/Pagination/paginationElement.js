@@ -1,23 +1,21 @@
 import React from 'react';
-import {setPage, 
-        showSelectedNumberProductsPerPage, 
-} from '../../features/productsSlice';
+import {setPage} from '../../features/productsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 
-const PaginationElement = (props) => {
-    const dispatch = useDispatch()
+const PaginationElement = ({number}) => {
+    const dispatch = useDispatch() 
     const store = useSelector(state => state.productsSlice)
     const handleChange = () => {
-        if(parseInt(props.number)) {
-            dispatch(setPage({page: props.number}))
-            dispatch(showSelectedNumberProductsPerPage())
+        if(parseInt(number)) {
+            dispatch(setPage({page: number}))
         }
     }
     return (
-        <div className={props.number === store.page ? "currentPage": "numberOfPageButton"}
-             onClick={handleChange}
-        > {props.number}
+        <div className={number === store.page ? "currentPage": "numberOfPageButton"}
+            onClick={handleChange}
+        > 
+            {number}
         </div>
     )
 }

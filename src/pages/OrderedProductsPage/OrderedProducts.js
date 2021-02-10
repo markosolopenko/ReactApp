@@ -20,9 +20,9 @@ const OrderedProducts = () => {
             />
             {formSlice.productByNickname.length > 0 ?
                 <OrderedProductsBody 
-                    order={formSlice.productByNickname}
-                    date={formSlice.dateOfOrder} 
-                /> :
+                    orders={formSlice.productByNickname}
+                />
+                :
                 <h1>Your history of order is Empty</h1>
             }
         </div>

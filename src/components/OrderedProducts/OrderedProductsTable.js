@@ -2,21 +2,21 @@ import React from 'react';
 import TableHead  from './OrderProductsTableHead';
 import TableBody from './OrderedProductsTableBody';
 
-const OrderedProductsBody = ({order, date}) => { 
+const OrderedProductsBody = ({orders}) => { 
     return (
         <div className="orderedProductsBody">
             <table className="orderedProductsTableTitle">
-                <TableHead />
+                <TableHead />  
                 {
-                    <tbody className="orderedTableBody">   
-                    {
-                        order.map((product, id) => 
-                            <TableBody key={id} product={product} date={date} />
-                        )
-                    }
-                    </tbody> 
+                    orders.map((order, id) => 
+                        <TableBody 
+                            key={id} 
+                            products={order.orderedProducts} 
+                            date={order.date}
+                            amountOrderedProducts={order.amountOrderedProducts} 
+                        />
+                    )
                 }
-    
             </table>
         </div>
     )

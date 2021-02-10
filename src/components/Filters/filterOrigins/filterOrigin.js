@@ -7,7 +7,7 @@ const FilterOrigin = (props) => {
         <div className="selectOrigin">
             <div className="originTilte">Origins:</div>
             { 
-                props.origins.map((origin, id) => 
+                ['asia', 'europe', 'africa', 'usa'].map((origin, id) => 
                     <FilterOriginElement 
                         origin={origin}
                         key={id} 

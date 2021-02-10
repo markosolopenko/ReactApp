@@ -4,8 +4,8 @@ import { getProducts } from '../api/getProducts';
 
 export const fetchProducts = createAsyncThunk(
     "api/getProducts",
-    async (page) => {
-        return await getProducts(page)
+    async ({page, perPage, origins, minPrice, maxPrice}) => {
+        return await getProducts({page, perPage, origins, minPrice, maxPrice})
     } 
 )
 
@@ -25,8 +25,8 @@ const initialState = {
     origins: [],
     perPage: '',
     range: 1,
-    currPage: [],
-    priceOfSpecificProducts: 0
+    minPrice: '',
+    maxPrice: ''
 }
 
 export const productsSlice = createSlice({
@@ -51,7 +51,9 @@ export const productsSlice = createSlice({
         },
         deleteProductFromCart(state, action) {
             const { id } = action.payload
-            state.cartPageSetProducts = state.cartPageSetProducts.filter(product => product.id !== id)
+            state.cartPageSetProducts = state.cartPageSetProducts.filter(product => 
+                product.id !== id
+            )
             state.cartPageProducts = state.cartPageProducts.filter(product => product.id !== id)
         },
         subtractProductFromCart(state, action) {
@@ -70,80 +72,27 @@ export const productsSlice = createSlice({
         },
         productsPerPage(state, action) {
             state.perPage = action.payload.number
+        },
+        setOrigin(state, action) {
+            const {origin} = action.payload
+            if(state.origins.includes(origin)) {
+                state.origins = state.origins.filter(el => el !== origin)
+            }else {
+                state.origins.push(origin)
+            }
             
         },
-        showSelectedNumberProductsPerPage(state) {
-            if(parseInt(state.perPage)) {
-                let indexOfLast = state.page * state.perPage
-                let indexOfFirst = indexOfLast - Number(state.perPage)
-                state.products = state.initialItems.slice(indexOfFirst, indexOfLast)
-            }else {
-                state.products = state.initialItems
-                state.range = 1
-            }  
+        setMinPrice(state, action) {
+            state.minPrice = action.payload.min
         },
-        showProductsByPrices(state, action) {
-            const {min, max} = action.payload
-            if(state.products.length === 0)
-                state.products = state.initialItems.filter(product => 
-                    Number(product.price) >= Number(min) && 
-                    Number(product.price) <= Number(max))
-            else {
-                state.products = state.initialItems.filter(product => 
-                    state.products.includes(product) &&
-                    Number(product.price) >= Number(min) && 
-                    Number(product.price) <= Number(max))
-            }
-            if(min === 0 && max === 0) {
-                if(parseInt(state.perPage)) {
-                    let indexOfLast = state.page * state.perPage
-                    let indexOfFirst = indexOfLast - Number(state.perPage)
-                    state.products = state.initialItems.slice(indexOfFirst, indexOfLast) 
-                }else {
-                    state.products = state.initialItems
-                }
-                
-            }
-        },
-        showSelectedOrigins(state, action) {
-            const { checked, origin } = action.payload
-            if(checked === true) {
-                state.products = state.initialItems.filter(product => 
-                    product.origin === origin
-                )
-                state.productsToShow = [...state.productsToShow, ...state.products]
-                state.products = state.productsToShow
-            }
-            if(checked === false) {
-                if(!parseInt(state.perPage)) {
-                    state.products = state.products.filter(product => 
-                        product.origin !== origin
-                    )
-                    state.productsToShow = state.products
-                }else {
-                    let indexOfLast = state.page * state.perPage
-                    let indexOfFirst = indexOfLast - Number(state.perPage)
-                    state.products = state.initialItems.slice(indexOfFirst, indexOfLast)
-                }
-                state.productsToShow = state.products
-                
-            }
-            if (state.products.length === 0) {
-                if(parseInt(state.perPage)) {
-                    let indexOfLast = state.page * state.perPage
-                    let indexOfFirst = indexOfLast - Number(state.perPage)
-                    state.products = state.initialItems.slice(indexOfFirst, indexOfLast)
-                }else {
-                    state.products = state.initialItems
-                }
-                
-            }
+        setMaxPrice(state, action) {
+            state.maxPrice = action.payload.max
         },
         setPage(state, action) {
             state.page = action.payload.page
         },
         setRange(state) {
-            state.range = Math.ceil(state.initialItems.length / state.perPage)
+            state.range = Math.ceil(state.totalItems / state.perPage)
             state.page = 1
         },
         handleArrowBack(state) {
@@ -154,6 +103,12 @@ export const productsSlice = createSlice({
         },
         setPriceOfSpecificProducts(state, action) {
             state.cartPageSetProducts = action.payload.totalSum 
+        },
+        handleOrderEvent(state) {
+            state.amountAddedProducts = 0
+            state.sumOfPricesAddedProducts = 0
+            state.cartPageProducts = []
+            state.cartPageSetProducts = []
         }
     },
     extraReducers: {
@@ -167,8 +122,6 @@ export const productsSlice = createSlice({
             state.status = 'succeeded'
             state.error = undefined
             state.initialItems = items
-            items.forEach(product => 
-                !state.origins.includes(product.origin) ? state.origins.push(product.origin): null)
         },
         [fetchProducts.rejected]: (state, action) => {
             state.status = 'failed'
@@ -179,24 +132,23 @@ export const productsSlice = createSlice({
 
 export const {
     countGenerallyAddedProducts,
-    setProductToDetailsPage,
-    addProductsToCartPage,
-    addProductsToCartPageSet,
     decreaseProductFromDetails,
-    deleteProductFromCart ,
-    subtractProductFromCart,
+    setPriceOfSpecificProducts,
     subtractFromAddedProducts,
-    takesDataFromInput,
-    handleCheckbox,
-    showSelectedOrigins,
-    showProductsByPrices,
-    showSelectedNumberProductsPerPage,
-    setPage,
-    productsPerPage,
-    setRange,
-    handleArrowBack,
+    addProductsToCartPageSet,
+    subtractProductFromCart, 
+    setProductToDetailsPage,
+    deleteProductFromCart,
+    addProductsToCartPage,
     handleArrowForward,
-    movingSlider,
-    setPriceOfSpecificProducts
+    takesDataFromInput,
+    handleOrderEvent,
+    handleArrowBack,
+    productsPerPage,
+    setMaxPrice, 
+    setMinPrice,
+    setOrigin,
+    setRange,
+    setPage,
 
 } = productsSlice.actions

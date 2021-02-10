@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import PaginationElement from './paginationElement';
 import { useDispatch, useSelector } from 'react-redux';
 import './pagination.css';
@@ -6,50 +6,53 @@ import {ReactComponent as ArrowBack} from '../../assets/arrowBack.svg';
 import {ReactComponent as ArrowForward} from '../../assets/arrowForward.svg';
 import {handleArrowForward,
         handleArrowBack,
-        showSelectedNumberProductsPerPage  
+
 } from '../../features/productsSlice';
 
 const Pagination = () => {
-    const store =  useSelector(state => state.productsSlice)
+    const store =  useSelector(state => state)
+    const {productsSlice} = store
+    const arrowBack = document.querySelector('.arrowBackPaginationDiv');
+    const arrowForward = document.querySelector('.arrowForwardPaginationDiv');
     const dispatch = useDispatch()
-    const slider = useRef()
-
-    const range = () => {
-        const range = []
-        for(let i = 1; i <= store.range; i++) {
+    const range = []
+    if(parseInt(productsSlice.perPage)) {
+        arrowBack.style.display = 'flex';
+        arrowForward.style.display = 'flex';
+        for(let i = 1; i < productsSlice.range; i++) {
             range.push(i)
         }
-        return range;
+    }else {
+        if(arrowBack && arrowForward) {
+            arrowBack.style.display = 'none';
+            arrowForward.style.display = 'none'; 
+        }
     }
-    const rangeOfPages = range()
 
     const handleArrowBackFunc = () => {
-        if(store.page > 1) {
+        if(productsSlice.page > 1) {
             dispatch(handleArrowBack())
-            dispatch(showSelectedNumberProductsPerPage())
         } 
     }
     const handleArrowForwardFunc = () => {
-        if(store.page < store.range) {
+        if(productsSlice.page < productsSlice.range) {
             dispatch(handleArrowForward())
-            dispatch(showSelectedNumberProductsPerPage())
         } 
     }
     return (
         <div className="pagination">
-            <div className="sliderPagination" ref={slider}>
+            <div className="sliderPagination">
                 <div className="arrowBackPaginationDiv" 
                     onClick={handleArrowBackFunc}>
                     <ArrowBack className="arrowBackPagination" />
                 </div>
                 {
-                    rangeOfPages.map((number, index) =>
-                            <PaginationElement 
-                                number={number}
-                                key={index} 
-                                slider={slider}
-                            />
-                    ) 
+                    range.map((number, index) => 
+                        <PaginationElement 
+                            number={number}
+                            key={index} 
+                        />
+                    )
                 }
                 <div className="arrowForwardPaginationDiv" 
                     onClick={handleArrowForwardFunc}>

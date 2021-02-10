@@ -1,9 +1,11 @@
 .pagination {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: left;
 
-    margin: 50px 0 50px 0;
+    margin: 50px auto 50px auto;
+    width: 410px;
+    overflow: hidden;
 }
 
 .sliderPagination {
@@ -40,7 +42,10 @@
     height: 30px;
     background-color:#2f2666;
     border-radius: 6px;
-    margin-right: 3px;
+
+    position: absolute;
+    left: 680px;
+    display: none;
 }
 .arrowForwardPaginationDiv {
     display: flex;
@@ -50,7 +55,10 @@
     height: 30px;
     background-color:#2f2666;
     border-radius: 6px;
-    margin-left: -4px;
+
+    position: absolute;
+    right: 681px;
+    display: none;
 }
 .arrowBackPagination, .arrowForwardPagination {
     width: 20px;
@@ -81,4 +89,3 @@
     color: white;
     cursor: pointer;
 }
-

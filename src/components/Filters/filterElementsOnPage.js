@@ -2,7 +2,6 @@ import React from 'react'
 import { useDispatch } from 'react-redux';
 import {productsPerPage, 
         setRange, 
-        showSelectedNumberProductsPerPage 
 } from '../../features/productsSlice';
 
 const FilterElementsOnPage = () => {
@@ -10,7 +9,6 @@ const FilterElementsOnPage = () => {
     const handleChange = (event) => {
         dispatch(productsPerPage({number: event.target.value}))
         dispatch(setRange())
-        dispatch(showSelectedNumberProductsPerPage())
     }
     return (
         <div className="amountPerPage">

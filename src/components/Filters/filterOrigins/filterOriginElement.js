@@ -1,16 +1,13 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
-import { showSelectedOrigins } from '../../../features/productsSlice';
+import { setOrigin } from '../../../features/productsSlice';
 
 
 
 const FilterOriginElement = (props) => {
     const dispatch = useDispatch()
-    const [selected, setSelect] = useState(false)
     const handleChange = (event) => {
-        setSelect(!selected)
-        dispatch(showSelectedOrigins(
-            {checked: event.target.checked, origin: props.origin}))
+        dispatch(setOrigin({origin: event.target.name}))
     }
     return (
         <div className="originList">
@@ -21,7 +18,6 @@ const FilterOriginElement = (props) => {
                 type="checkbox" 
                 name={props.origin} 
                 className="origin"
-                checked={selected}
                 onChange={handleChange}
             />
         </div>

@@ -19,11 +19,14 @@ const MainPage = () => {
     const store = useSelector(state => state.productsSlice)
     const dispatch = useDispatch()
 
-    const { amountAddedProducts, sumOfPricesAddedProducts } = store
+    const {amountAddedProducts, sumOfPricesAddedProducts, 
+           perPage, page, origins, minPrice, maxPrice
+        } = store
 
     useEffect(() => {
-        dispatch(fetchProducts(1))
-    }, [dispatch])
+        dispatch(fetchProducts({page, perPage, origins, minPrice, maxPrice}))
+    }, [dispatch, perPage, page, origins, minPrice, maxPrice])
+    
     const addProductToDetailsPage = (product) => {
         dispatch(setProductToDetailsPage({product: product}))
     }
