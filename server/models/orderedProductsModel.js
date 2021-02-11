@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');  
 
 const orderedSchema = {
-    nameOfClient: String,
+    date: String,
+    nickname: String,
+    amountOrderedProducts: Object,
     orderedProducts: [
         {
             isEditable: Boolean,

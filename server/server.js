@@ -15,7 +15,8 @@ mongoose.connect(process.env.DB_CONNECTION,
 () => {
     console.log("Connected to DB")
 });
-app.use("/products", require('./routes/products'));
+app.use("/products", require('./routes/productsCreate'));
+app.use("/products", require('./routes/productsOrder'))
 
 app.listen(3001, () => {
     console.log("Server has been runed")

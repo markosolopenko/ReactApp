@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 
 const Products = require('../models/productModel')
-const Orders = require('../models/orderedProductsModel')
 
 
 router.route("/create").post((req, res) => {
@@ -12,30 +11,10 @@ router.route("/create").post((req, res) => {
     const newProduct = new Products({name, price, origin});
     newProduct.save();
 });
-router.route("/order").post((req, res) => {
-    const nameOfClient = req.body.nameOfClient;
-    const orderedProducts = req.body.cartPageSetProducts.map(product => {
-        return {
-            isEditable: product.isEditable, 
-            id: product.id, 
-            name: product.name,
-            price: product.price,
-            origin: product.origin, 
-            createdAt: product.createdAt,
-            updatedAt: product.updatedAt
-        };
-    });
-    const newOrder = new Orders({nameOfClient, orderedProducts})
-    newOrder.save();
-});
+
 
 router.route("/createdProducts").get((req, res) => {
     Products.find()
-        .then(foundProduct => res.json(foundProduct))
-});
-
-router.route("/orderedProducts").get((req, res) => {
-    Orders.find()
         .then(foundProduct => res.json(foundProduct))
 });
 
