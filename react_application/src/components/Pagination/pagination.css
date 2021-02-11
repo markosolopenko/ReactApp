@@ -1,0 +1,91 @@
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+
+    margin: 50px auto 50px auto;
+    width: 410px;
+    overflow: hidden;
+}
+
+.sliderPagination {
+    display: flex;
+    align-items: center;
+}
+
+.numberOfPageButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    background-color: white;
+    border: 2px solid #534dbe;
+    font-size: 20px;
+    color: #2f2666;
+    font-weight: bold;
+    margin-right: 7px;
+}
+.numberOfPageButton:hover {
+    cursor: pointer;
+    background-color: #534dbe;
+    color: white;
+}
+
+
+.arrowBackPaginationDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background-color:#2f2666;
+    border-radius: 6px;
+
+    position: absolute;
+    left: 680px;
+    display: none;
+}
+.arrowForwardPaginationDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background-color:#2f2666;
+    border-radius: 6px;
+
+    position: absolute;
+    right: 681px;
+    display: none;
+}
+.arrowBackPagination, .arrowForwardPagination {
+    width: 20px;
+    height: 20px;
+    color: white;
+}
+.arrowBackPaginationDiv:hover, .arrowForwardPaginationDiv:hover {
+    background-color: white;
+    cursor: pointer;
+}
+.arrowBackPaginationDiv:hover .arrowBackPagination, 
+.arrowForwardPaginationDiv:hover .arrowForwardPagination{
+    color: #2f2666;
+}
+
+.currentPage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 7px;
+    background-color: #534dbe;
+    color: white;
+    cursor: pointer;
+}
