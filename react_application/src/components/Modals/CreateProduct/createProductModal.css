@@ -1,0 +1,9 @@
+.createProductModal {
+    background:linear-gradient(45deg, #2f2666,#534dbe);
+    padding: 1rem;
+    width: 430px;
+    border-radius: 10px;
+    position: absolute;
+    top: 65px;
+    left: 408px;
+}
