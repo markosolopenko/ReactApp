@@ -30,7 +30,7 @@ const DetailBody = (props) => {
                 </div>
                 <div className="infoBlock">
                     <div>
-                        <div className="detailOrigin">ORIGIN: <span>{product.origin.toUpperCase()}</span></div>
+                        <div className="detailOrigin">ORIGIN: <span>{product.origin}</span></div>
                         <div className="detailOrigin">CREATE: <span>{product.createdAt}</span></div>
                     </div>
                     <div className="plus__minus">

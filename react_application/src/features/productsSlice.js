@@ -1,13 +1,6 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getProducts } from '../api/getProducts';
+import { createSlice } from '@reduxjs/toolkit';
 
 
-export const fetchProducts = createAsyncThunk(
-    "api/getProducts",
-    async ({page, perPage, origins, minPrice, maxPrice}) => {
-        return await getProducts({page, perPage, origins, minPrice, maxPrice})
-    } 
-)
 
 const initialState = {
     amountAddedProducts: 0,
@@ -21,12 +14,12 @@ const initialState = {
     page: 1,
     initialItems: [],
     products: [],
-    productsToShow: [],
     origins: [],
     perPage: '',
     range: 1,
     minPrice: '',
-    maxPrice: ''
+    maxPrice: '',
+    productId: ''
 }
 
 export const productsSlice = createSlice({
@@ -38,7 +31,7 @@ export const productsSlice = createSlice({
             state.sumOfPricesAddedProducts += action.payload.price
         },
         setProductToDetailsPage(state, action) {
-            state.product = action.payload.product
+            state.product = action.payload
         },
         addProductsToCartPage(state, action) {
             state.cartPageProducts = [...state.cartPageProducts, ...action.payload.array]
@@ -109,25 +102,20 @@ export const productsSlice = createSlice({
             state.sumOfPricesAddedProducts = 0
             state.cartPageProducts = []
             state.cartPageSetProducts = []
-        }
-    },
-    extraReducers: {
-        [fetchProducts.pending]: (state) => {
+        },
+        fetchProducts(state, action) {
+            state.products = action.payload
+        },
+        loadData(state) {
             state.status = 'loading'
         },
-        [fetchProducts.fulfilled]: (state, action) => {
-            const { totalItems, items } = action.payload    
-            state.totalItems = totalItems
-            state.products = items
-            state.status = 'succeeded'
-            state.error = undefined
-            state.initialItems = items
+        setProductId(state, action) {
+            state.productId = action.payload.id
         },
-        [fetchProducts.rejected]: (state, action) => {
-            state.status = 'failed'
-            state.error = action.payload
-        },
-    }
+        loadDataById(state) {
+            state.status= 'loading'
+        }
+    },
 }) 
 
 export const {
@@ -145,10 +133,14 @@ export const {
     handleOrderEvent,
     handleArrowBack,
     productsPerPage,
+    fetchProducts,
     setMaxPrice, 
     setMinPrice,
     setOrigin,
     setRange,
     setPage,
+    loadData,
+    setProductId,
+    loadDataById
 
 } = productsSlice.actions

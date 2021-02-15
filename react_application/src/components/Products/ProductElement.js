@@ -14,7 +14,7 @@ const ProductElement = ({product, addToCart, addProductToDetails}) => {
             <div className="cardButtons">            
                 <Link to="/products/productsDetails">
                     <button className="moreDetail" 
-                            onClick={() => addProductToDetails(product)}
+                            onClick={() => addProductToDetails(product.id)}
                         >DETAIL PAGE</button>
                 </Link>
                 <button className="addToCard" onClick={() => 

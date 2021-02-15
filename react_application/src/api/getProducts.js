@@ -1,22 +1,16 @@
+import axios from 'axios';
 
 export const getProducts = ({page, perPage, origins, minPrice, maxPrice}) => {
-    return ( 
-        fetch("https://yalantis-react-school-api.yalantis.com/api/v1/products?" +
+    return axios("https://yalantis-react-school-api.yalantis.com/api/v1/products?" +
         "page=" + page + 
-        "&perPage=" + perPage + 
-        "&origins=" + origins + 
+        "&perPage=" + perPage +
+        "&origin=" + origins +
         "&minPrice=" + minPrice + 
         "&maxPrice=" + maxPrice
-        
-        )
-            .then((result) => result.json())
-            .then((result) => {
-                return result;
-            })
-            .catch((error) => {
-                return error
-            })
-    )
+    ).then(res => res.data);
 }   
 
-
+export const getProdcutById = (id) => {
+    return axios(`https://yalantis-react-school-api.yalantis.com/api/v1/products/${id}`)
+        .then(res => res.data);
+}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import DetailsBody from '../../components/DetailPage/DetailsBody'
 import HeaderOfPage from '../../components/Header/HeaderOfPage'
 // Redux
@@ -6,7 +6,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import {countGenerallyAddedProducts,
         addProductsToCartPage,
         decreaseProductFromDetails, 
-        addProductsToCartPageSet } from '../../features/productsSlice';
+        addProductsToCartPageSet,
+} from '../../features/productsSlice';
 import { handleChange, addToInput,  subtractFromInput } from '../../features/inputSlice';
 
 
@@ -14,7 +15,8 @@ const ProductsDetail = () => {
     const store = useSelector(state => state)
     const dispatch = useDispatch()
     const { value } = store.inputSlice
-    const { amountAddedProducts, sumOfPricesAddedProducts, product } = store.productsSlice
+    const { amountAddedProducts, product, cartPageSetProducts,
+            sumOfPricesAddedProducts } = store.productsSlice
     const increment = () => {
         if (value >= 0) {
            dispatch(addToInput())
@@ -37,7 +39,7 @@ const ProductsDetail = () => {
         }
         dispatch(countGenerallyAddedProducts({count: value, price: sum}))
         dispatch(addProductsToCartPage({array: array}))
-        if(!store.productsSlice.cartPageSetProducts.includes(product)) {
+        if(!cartPageSetProducts.includes(product)) {
              dispatch(addProductsToCartPageSet({product: product}))
         }
            
